@@ -1,2 +1,14 @@
-**/.pbi/localSettings.json
-**/.pbi/cache.abf
+# Power BI system files
+**/.pbi/
+*.abf
+
+# Power BI local settings
+localSettings.json
+cache.abf
+
+# Layout / auto-generated report artifacts
+diagramLayout.json
+
+# Optional: temp files
+*.tmp
+*.log
