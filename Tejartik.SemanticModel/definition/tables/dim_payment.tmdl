@@ -1,0 +1,73 @@
+table dim_payment
+	lineageTag: c150e86f-13f3-4476-9213-957b529ae49e
+
+	column payment_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: e4a3d636-95bb-4b7c-a309-1c177f4aa637
+		summarizeBy: sum
+		sourceColumn: payment_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 08d27bf0-9da8-48d1-a57f-bc252fa087fd
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a810a545-9519-4d22-9bee-d26dafb946ad
+		summarizeBy: sum
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column method
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: c5c033e2-e803-4640-984c-2a73e81716ee
+		summarizeBy: none
+		sourceColumn: method
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 8ec3360e-3a38-4c11-bed9-42f4646d88e3
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount
+		dataType: double
+		sourceProviderType: decimal(12, 2)
+		lineageTag: 20e044dd-66a7-4aef-a320-4d70aa68103b
+		summarizeBy: sum
+		sourceColumn: amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dim_payment = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_payment_Table = gold_Schema{[Name="dim_payment",Kind="Table"]}[Data]
+				in
+				    dim_payment_Table
+

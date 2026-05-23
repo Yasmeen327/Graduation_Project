@@ -1,0 +1,84 @@
+table dim_seller
+	lineageTag: 064c1d90-3d0b-4b7e-800d-5261ebb704dd
+
+	column seller_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ca506ce2-f220-45c9-83ef-c486b41c6856
+		summarizeBy: sum
+		sourceColumn: seller_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 92696acc-68a8-4393-abec-09dab72ce6a4
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 7320a1f9-a391-4f33-ab27-11c8be5b793d
+		summarizeBy: sum
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: d0ed7fc5-424b-441b-8f39-d135d463f6f6
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 62f3e919-5f4a-4f8b-94ac-6fdb7db7ac8b
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column join_date
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 299421c6-b4ca-4e5c-978b-1faaff9ce450
+		summarizeBy: none
+		sourceColumn: join_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column seller_tier
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 7a2a2be8-a6f0-4c08-81e4-da1aa29ed151
+		summarizeBy: none
+		sourceColumn: seller_tier
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_seller = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_seller_Table = gold_Schema{[Name="dim_seller",Kind="Table"]}[Data]
+				in
+				    dim_seller_Table
+
+	annotation PBI_ResultType = Table
+

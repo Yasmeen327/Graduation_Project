@@ -1,0 +1,133 @@
+table dim_date
+	lineageTag: 260532be-aa42-4caf-8a29-c380af2a3192
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 8def0e79-8344-4824-8650-08d5a8c9c941
+		summarizeBy: sum
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column full_date
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 383136e7-3629-4f88-97d7-a07fdece411f
+		summarizeBy: none
+		sourceColumn: full_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column day
+		dataType: int64
+		formatString: 0
+		sourceProviderType: tinyint
+		lineageTag: 194c62b7-ce84-4616-b7dc-cc2f015cb84f
+		summarizeBy: sum
+		sourceColumn: day
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		sourceProviderType: tinyint
+		lineageTag: a1f04c37-28d8-4691-aba8-3a28f757a93b
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		sourceProviderType: tinyint
+		lineageTag: 20c00241-1b9e-4922-9085-0f04efe7d914
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: smallint
+		lineageTag: 2235d6b6-caca-420b-b61b-796c0007f0b1
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column week_number
+		dataType: int64
+		formatString: 0
+		sourceProviderType: tinyint
+		lineageTag: e08d862f-1c4f-49e1-9ca7-59b0d4e6aa85
+		summarizeBy: sum
+		sourceColumn: week_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_name
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 2c8f53a6-74b9-4140-b5de-9a664554a8ff
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 07d60793-ad1f-4d9a-889d-e28c1403d5a2
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: int64
+		formatString: 0
+		sourceProviderType: tinyint
+		lineageTag: 810f5c07-0b9b-46fa-97ee-5cab15a24762
+		summarizeBy: sum
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_holiday
+		dataType: int64
+		formatString: 0
+		sourceProviderType: tinyint
+		lineageTag: 658ae2ac-fad5-44a2-b9df-d66c0e1c94e1
+		summarizeBy: sum
+		sourceColumn: is_holiday
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_quarter
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 2d8f21ac-332c-42fb-b133-2ee4359140e9
+		summarizeBy: none
+		sourceColumn: fiscal_quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_date_Table = gold_Schema{[Name="dim_date",Kind="Table"]}[Data]
+				in
+				    dim_date_Table
+

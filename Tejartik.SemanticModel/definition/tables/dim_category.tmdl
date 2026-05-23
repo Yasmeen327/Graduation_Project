@@ -1,0 +1,62 @@
+table dim_category
+	lineageTag: 305c7b90-682f-4c85-9d2f-3fc1174011b9
+
+	column category_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3f962fb2-64b9-426c-815c-f69348c7dce5
+		summarizeBy: sum
+		sourceColumn: category_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_id
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 0bbdd6b4-5bb6-47fa-8a7e-1c0ab8ba67e3
+		summarizeBy: none
+		sourceColumn: category_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: a9ffc0e8-d0a4-486b-923b-ebc7bcff0677
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column commission_rate
+		dataType: double
+		sourceProviderType: double
+		lineageTag: a0d573fd-5214-4383-a5ec-7abb88ff9d61
+		summarizeBy: sum
+		sourceColumn: commission_rate
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column parent_category
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 93f91b11-fc55-4a32-9b59-b01e498038a3
+		summarizeBy: none
+		sourceColumn: parent_category
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_category = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_category_Table = gold_Schema{[Name="dim_category",Kind="Table"]}[Data]
+				in
+				    dim_category_Table
+

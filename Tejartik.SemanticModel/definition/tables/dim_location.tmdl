@@ -1,0 +1,69 @@
+table dim_location
+	lineageTag: bafd3ce2-3145-4e70-bce3-49faf7d33e77
+
+	column location_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 99088819-14dc-400a-a9d7-20480a4caf57
+		summarizeBy: sum
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_id
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: de375613-04ba-4bd3-840e-4964edbcf244
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: cb87553d-036a-4900-8679-a4ecbf248692
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 669cc0f3-a232-4467-a65a-da90a99b0133
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: ef04606e-ea73-4780-9c2f-492bc65adcfa
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column timezone
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: ba5283e9-f70f-4b5c-b16b-13eb2dbf77ab
+		summarizeBy: none
+		sourceColumn: timezone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_location = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_location_Table = gold_Schema{[Name="dim_location",Kind="Table"]}[Data]
+				in
+				    dim_location_Table
+

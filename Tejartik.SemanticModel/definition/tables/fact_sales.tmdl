@@ -1,0 +1,172 @@
+table fact_sales
+	lineageTag: aac416ff-e71d-40b0-b8d9-4cd49c895f4f
+
+	column sales_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: a14159cd-eaea-4a2b-98e6-7e9887af02a2
+		summarizeBy: sum
+		sourceColumn: sales_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 040b81cc-74ca-44ac-9c81-96380513c5e4
+		summarizeBy: sum
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e8587a1a-c01e-43a7-8026-78824dc3901e
+		summarizeBy: sum
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f43bed6d-b3fb-469c-92ba-d97dbb938aca
+		summarizeBy: sum
+		sourceColumn: product_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e63203dd-d2ca-449f-9151-9916a7ad177d
+		summarizeBy: sum
+		sourceColumn: seller_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 6482bb32-b1a7-44cb-9939-9df0795035c6
+		summarizeBy: sum
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column promotion_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e7f2c227-0fec-4e4b-9c79-70b9230e47d1
+		summarizeBy: sum
+		sourceColumn: promotion_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: b3df2034-e01b-4d03-8297-adc4e16c32d5
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantity_sold
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: eb54cd00-e5fb-4312-aedd-d170eb940e8a
+		summarizeBy: sum
+		sourceColumn: quantity_sold
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_price
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: ad2ea03c-7c67-40b7-968b-58218e66e64d
+		summarizeBy: sum
+		sourceColumn: unit_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tax_amount
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 5a5a9667-869a-44ba-98a8-569457acfc9c
+		summarizeBy: sum
+		sourceColumn: tax_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column discount_amount
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: eb612e70-fd82-4f08-95be-3781eb6e8086
+		summarizeBy: sum
+		sourceColumn: discount_amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gross_revenue
+		dataType: double
+		sourceProviderType: double
+		lineageTag: a4d88cd9-4e64-4bd8-897c-2b9dea60575f
+		summarizeBy: sum
+		sourceColumn: gross_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column net_revenue
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 94cea09d-4de0-4d77-8a94-28b742a1e997
+		summarizeBy: sum
+		sourceColumn: net_revenue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column shipping_fee
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 0b25df64-8257-4a65-b06a-4e5477a07119
+		summarizeBy: sum
+		sourceColumn: shipping_fee
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_sales = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    fact_sales_Table = gold_Schema{[Name="fact_sales",Kind="Table"]}[Data]
+				in
+				    fact_sales_Table
+
+	annotation PBI_ResultType = Table
+

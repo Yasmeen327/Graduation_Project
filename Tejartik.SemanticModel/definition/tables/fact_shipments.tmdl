@@ -1,0 +1,104 @@
+table fact_shipments
+	lineageTag: 329e9c5a-c93f-446d-9c86-b6f520842314
+
+	column shipment_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: fec67934-76e6-4c64-be1d-9eb3f0cbc862
+		summarizeBy: sum
+		sourceColumn: shipment_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: f77b5567-c2b5-4e58-bb14-272f85c718fb
+		summarizeBy: sum
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipped_date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0236181d-abdb-4be2-9e82-a3a817b4e35f
+		summarizeBy: sum
+		sourceColumn: shipped_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivered_date_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: db5d0c29-72ff-4a73-be6a-81439f793966
+		summarizeBy: sum
+		sourceColumn: delivered_date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f7a0eaa3-5b0a-41fc-818f-0fa9b8cfbc20
+		summarizeBy: sum
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 88d276bd-8aa5-4dfd-a707-3993fd4570b1
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivery_days
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ab962e7c-315d-4511-b6a2-ad7f884c8211
+		summarizeBy: sum
+		sourceColumn: delivery_days
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_on_time
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 65b95e5f-affc-4b45-ba83-31b2dfd64276
+		summarizeBy: sum
+		sourceColumn: is_on_time
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_quality_flag
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: de4c6bce-46a8-4c99-b947-6672f136e251
+		summarizeBy: none
+		sourceColumn: data_quality_flag
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_shipments = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    fact_shipments_Table = gold_Schema{[Name="fact_shipments",Kind="Table"]}[Data]
+				in
+				    fact_shipments_Table
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Tejartik"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "87d690a1-b15b-4d1e-87e6-e3d424d51d09"
+  }
+}

@@ -1,0 +1,134 @@
+table dim_customer
+	lineageTag: b470fd81-3363-4110-8d8e-efd9a26e4920
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9a070ac1-3f3a-422f-ba6d-5247691a47f9
+		summarizeBy: sum
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: baa543af-d3e9-41d9-9cbd-26d1b41fe132
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ac94d326-5304-4cc0-8340-03aaa3c2585a
+		summarizeBy: sum
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: b8ba16a3-4c36-457e-b4ac-b93ca200298d
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column email
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 8f7438e2-8b85-433c-a5bd-732afecfc3ca
+		summarizeBy: none
+		sourceColumn: email
+
+		annotation SummarizationSetBy = Automatic
+
+	column phone
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 2413e92b-b773-4c94-9fe9-043421f21aae
+		summarizeBy: none
+		sourceColumn: phone
+
+		annotation SummarizationSetBy = Automatic
+
+	column gender
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 53df1595-0c93-4c5d-bbe8-79ed721c6104
+		summarizeBy: none
+		sourceColumn: gender
+
+		annotation SummarizationSetBy = Automatic
+
+	column age_band
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 7a815568-6699-44cb-9f5f-a958b8328361
+		summarizeBy: none
+		sourceColumn: age_band
+
+		annotation SummarizationSetBy = Automatic
+
+	column registration_date
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 306ded52-6d43-46de-bbb0-74c4ad00ebf2
+		summarizeBy: none
+		sourceColumn: registration_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column is_current
+		dataType: int64
+		formatString: 0
+		sourceProviderType: tinyint
+		lineageTag: 9918f4c0-bef0-4165-af34-30e3de6316ab
+		summarizeBy: sum
+		sourceColumn: is_current
+
+		annotation SummarizationSetBy = Automatic
+
+	column effective_from
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 9d6a2b89-897f-4af3-92c2-095e406babc5
+		summarizeBy: none
+		sourceColumn: effective_from
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column effective_to
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 4246c5cb-f8db-4e9f-9cdb-06694dbc98e1
+		summarizeBy: none
+		sourceColumn: effective_to
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_customer = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_customer_Table = gold_Schema{[Name="dim_customer",Kind="Table"]}[Data]
+				in
+				    dim_customer_Table
+

@@ -1,0 +1,97 @@
+table dim_promotion
+	lineageTag: db72c0d7-e30e-4104-9221-cdfb519b9e5a
+
+	column promotion_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 218bfe9a-6f4e-480f-af83-290701a6de6e
+		summarizeBy: sum
+		sourceColumn: promotion_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column promotion_id
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: 850f2260-c830-4e31-85e3-bbad9d792724
+		summarizeBy: none
+		sourceColumn: promotion_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column name
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: b86583db-2ef0-4346-a72d-414d11852227
+		summarizeBy: none
+		sourceColumn: name
+
+		annotation SummarizationSetBy = Automatic
+
+	column discount_type
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: a48f7331-c439-4db3-a093-39406c341f43
+		summarizeBy: none
+		sourceColumn: discount_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column platform
+		dataType: string
+		sourceProviderType: nvarchar(65535)
+		lineageTag: c39ab2dd-72e1-4ad6-9333-ba7826ee7beb
+		summarizeBy: none
+		sourceColumn: platform
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_date
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: af7923fa-7d4d-45fa-bc46-1f68fe52eef1
+		summarizeBy: none
+		sourceColumn: start_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column end_date
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 6f63527d-aa16-4cb0-840d-1afdd1dc29b6
+		summarizeBy: none
+		sourceColumn: end_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column budget
+		dataType: double
+		sourceProviderType: decimal(12, 2)
+		lineageTag: 37ade603-d190-498f-b11e-640e6e0c0f43
+		summarizeBy: sum
+		sourceColumn: budget
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dim_promotion = m
+		mode: directQuery
+		source =
+				let
+				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
+				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
+				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_promotion_Table = gold_Schema{[Name="dim_promotion",Kind="Table"]}[Data]
+				in
+				    dim_promotion_Table
+
+	annotation PBI_ResultType = Table
+
