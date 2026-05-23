@@ -1,0 +1,79 @@
+table 'gold dim_payment'
+	lineageTag: a4bec6b5-7003-4234-a84d-1f42a56acfdb
+
+	column payment_key
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 2ef55306-5ec3-4be1-b5dd-a48f484b3996
+		summarizeBy: none
+		sourceColumn: payment_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 490c10e8-f0e8-4efc-9162-3ca89ef023b3
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 5ac6c1c7-3667-41d1-997f-a19df1d8aca3
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column method
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: e7baf18a-e51e-4248-af74-42510be9b940
+		summarizeBy: none
+		sourceColumn: method
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: af4e01fd-ae10-459d-8c88-1163bbe3cb60
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column amount
+		dataType: double
+		sourceProviderType: decimal(12, 2)
+		lineageTag: 850442d7-f90a-4b49-9b39-172561093d90
+		summarizeBy: none
+		sourceColumn: amount
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'gold dim_payment' = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_dim_payment = tijartek_reporting{[Schema="gold",Item="dim_payment"]}[Data]
+				in
+				    gold_dim_payment
+
+	changedProperty = Name
+
+	annotation PBI_ResultType = Table
+

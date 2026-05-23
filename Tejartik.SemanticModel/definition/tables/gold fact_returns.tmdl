@@ -1,11 +1,12 @@
-table fact_returns
-	lineageTag: 868537c5-7a30-4a3c-b9f6-c62ca7b43be8
+table 'gold fact_returns'
+	lineageTag: 2d58b958-bec3-4d88-9458-62c3e80fefc4
 
 	column return_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: bigint
-		lineageTag: 9b502941-f6cd-494b-b00c-11fc2170d939
+		lineageTag: 1b82ee5d-aa14-401d-949f-3493022dc2f6
 		summarizeBy: sum
 		sourceColumn: return_key
 
@@ -13,9 +14,10 @@ table fact_returns
 
 	column order_item_id
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: bigint
-		lineageTag: e1854b6b-b524-4a80-9e42-3e60916eef60
+		lineageTag: 8da25aac-b893-4ca0-99f3-a36688025db7
 		summarizeBy: sum
 		sourceColumn: order_item_id
 
@@ -25,36 +27,38 @@ table fact_returns
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 3a2f5d74-9c0e-4309-8702-7649c7bd7f0c
-		summarizeBy: sum
+		lineageTag: 5dc8cc4b-294e-4824-82f3-7db9d692a0df
+		summarizeBy: none
 		sourceColumn: product_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column customer_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: d3af30b1-3497-466b-a119-935abe83852a
-		summarizeBy: sum
+		lineageTag: 39273d36-c9b7-4c4f-a46d-f100c4f26db4
+		summarizeBy: none
 		sourceColumn: customer_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column return_date_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 2e34cedd-5317-476d-b24a-e50c50fd0169
-		summarizeBy: sum
+		lineageTag: f29bd9c1-fc7e-4975-afed-2a313b03145f
+		summarizeBy: none
 		sourceColumn: return_date_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column status
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: af2769b2-9cb2-4967-806f-8361759c8b32
+		sourceProviderType: varchar(50)
+		lineageTag: 980ec510-b0c1-469f-8fd6-b9c2530b7c86
 		summarizeBy: none
 		sourceColumn: status
 
@@ -62,8 +66,8 @@ table fact_returns
 
 	column refund_amount
 		dataType: double
-		sourceProviderType: double
-		lineageTag: 9e0ef731-e15a-4a06-ad94-32a9e15ead29
+		sourceProviderType: decimal(12, 4)
+		lineageTag: 125ca922-8b7d-4aef-81a5-282c884c6a9e
 		summarizeBy: sum
 		sourceColumn: refund_amount
 
@@ -71,16 +75,15 @@ table fact_returns
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition fact_returns = m
+	partition 'gold fact_returns' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    fact_returns_Table = gold_Schema{[Name="fact_returns",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_fact_returns = tijartek_reporting{[Schema="gold",Item="fact_returns"]}[Data]
 				in
-				    fact_returns_Table
+				    gold_fact_returns
 
 	annotation PBI_ResultType = Table
 

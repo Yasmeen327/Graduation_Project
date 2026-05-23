@@ -1,11 +1,12 @@
-table dim_seller
-	lineageTag: 064c1d90-3d0b-4b7e-800d-5261ebb704dd
+table 'gold dim_seller'
+	lineageTag: a2dd3bfb-eb1e-4e3a-92eb-9d82bd9561db
 
 	column seller_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: ca506ce2-f220-45c9-83ef-c486b41c6856
+		lineageTag: 883b4d32-7d81-4723-8d66-aa5e06441771
 		summarizeBy: sum
 		sourceColumn: seller_key
 
@@ -13,8 +14,9 @@ table dim_seller
 
 	column seller_id
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 92696acc-68a8-4393-abec-09dab72ce6a4
+		isNullable: false
+		sourceProviderType: varchar(50)
+		lineageTag: 6d1348dc-a2de-472c-8a55-6bccd9df98d8
 		summarizeBy: none
 		sourceColumn: seller_id
 
@@ -22,9 +24,10 @@ table dim_seller
 
 	column location_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 7320a1f9-a391-4f33-ab27-11c8be5b793d
+		lineageTag: 7e2fe11f-c171-4a22-b2a6-3f0d8a43f960
 		summarizeBy: sum
 		sourceColumn: location_key
 
@@ -32,8 +35,8 @@ table dim_seller
 
 	column name
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: d0ed7fc5-424b-441b-8f39-d135d463f6f6
+		sourceProviderType: nvarchar(150)
+		lineageTag: 73b8572a-b69d-41e0-913a-481c8d76cbec
 		summarizeBy: none
 		sourceColumn: name
 
@@ -41,8 +44,8 @@ table dim_seller
 
 	column type
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 62f3e919-5f4a-4f8b-94ac-6fdb7db7ac8b
+		sourceProviderType: varchar(50)
+		lineageTag: cd936fe2-0b22-4db4-8b47-9044532532ae
 		summarizeBy: none
 		sourceColumn: type
 
@@ -52,7 +55,7 @@ table dim_seller
 		dataType: dateTime
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: 299421c6-b4ca-4e5c-978b-1faaff9ce450
+		lineageTag: c082e008-f325-4b8a-be41-1d08d07868c0
 		summarizeBy: none
 		sourceColumn: join_date
 
@@ -62,23 +65,22 @@ table dim_seller
 
 	column seller_tier
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 7a2a2be8-a6f0-4c08-81e4-da1aa29ed151
+		sourceProviderType: varchar(30)
+		lineageTag: fad0767b-a7ad-4600-aadc-39e8910c7c18
 		summarizeBy: none
 		sourceColumn: seller_tier
 
 		annotation SummarizationSetBy = Automatic
 
-	partition dim_seller = m
+	partition 'gold dim_seller' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    dim_seller_Table = gold_Schema{[Name="dim_seller",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_dim_seller = tijartek_reporting{[Schema="gold",Item="dim_seller"]}[Data]
 				in
-				    dim_seller_Table
+				    gold_dim_seller
 
 	annotation PBI_ResultType = Table
 

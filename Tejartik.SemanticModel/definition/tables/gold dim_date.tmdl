@@ -1,21 +1,23 @@
-table dim_date
-	lineageTag: 260532be-aa42-4caf-8a29-c380af2a3192
+table 'gold dim_date'
+	lineageTag: a1d3be64-324e-447a-9309-6ec01dc510aa
 
 	column date_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 8def0e79-8344-4824-8650-08d5a8c9c941
-		summarizeBy: sum
+		lineageTag: b3b54f65-c221-40e1-bb3e-9c030aeb78d4
+		summarizeBy: none
 		sourceColumn: date_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column full_date
 		dataType: dateTime
+		isNullable: false
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: 383136e7-3629-4f88-97d7-a07fdece411f
+		lineageTag: 4cd4ec82-84a5-44f1-9fb0-c88310116856
 		summarizeBy: none
 		sourceColumn: full_date
 
@@ -25,9 +27,10 @@ table dim_date
 
 	column day
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: tinyint
-		lineageTag: 194c62b7-ce84-4616-b7dc-cc2f015cb84f
+		lineageTag: f86ca229-23a8-4307-baf4-0397d9a5e334
 		summarizeBy: sum
 		sourceColumn: day
 
@@ -35,9 +38,10 @@ table dim_date
 
 	column month
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: tinyint
-		lineageTag: a1f04c37-28d8-4691-aba8-3a28f757a93b
+		lineageTag: 8d6eecad-44c6-4f30-bbd4-2a123baa995f
 		summarizeBy: sum
 		sourceColumn: month
 
@@ -45,9 +49,10 @@ table dim_date
 
 	column quarter
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: tinyint
-		lineageTag: 20c00241-1b9e-4922-9085-0f04efe7d914
+		lineageTag: 5d84e228-7f25-47dd-84a9-c478a2486137
 		summarizeBy: sum
 		sourceColumn: quarter
 
@@ -55,9 +60,10 @@ table dim_date
 
 	column year
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: smallint
-		lineageTag: 2235d6b6-caca-420b-b61b-796c0007f0b1
+		lineageTag: e6ab5d3a-3957-48a0-be85-b35ce07dc4f9
 		summarizeBy: sum
 		sourceColumn: year
 
@@ -65,9 +71,10 @@ table dim_date
 
 	column week_number
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: tinyint
-		lineageTag: e08d862f-1c4f-49e1-9ca7-59b0d4e6aa85
+		lineageTag: 480ee10f-30d6-4284-928e-c84bf5b0a126
 		summarizeBy: sum
 		sourceColumn: week_number
 
@@ -75,8 +82,9 @@ table dim_date
 
 	column day_name
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 2c8f53a6-74b9-4140-b5de-9a664554a8ff
+		isNullable: false
+		sourceProviderType: varchar(15)
+		lineageTag: 625fffb5-8475-479a-b31d-d7a681c2a4f0
 		summarizeBy: none
 		sourceColumn: day_name
 
@@ -84,8 +92,9 @@ table dim_date
 
 	column month_name
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 07d60793-ad1f-4d9a-889d-e28c1403d5a2
+		isNullable: false
+		sourceProviderType: varchar(15)
+		lineageTag: 01374a3f-1580-4747-a57f-87ff81dcb9ad
 		summarizeBy: none
 		sourceColumn: month_name
 
@@ -93,9 +102,10 @@ table dim_date
 
 	column is_weekend
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: tinyint
-		lineageTag: 810f5c07-0b9b-46fa-97ee-5cab15a24762
+		lineageTag: 7e065f5a-a1ee-4017-a52a-64f5824db591
 		summarizeBy: sum
 		sourceColumn: is_weekend
 
@@ -103,9 +113,10 @@ table dim_date
 
 	column is_holiday
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: tinyint
-		lineageTag: 658ae2ac-fad5-44a2-b9df-d66c0e1c94e1
+		lineageTag: 26addbe1-d9e9-4603-afa1-e49a18f2fa27
 		summarizeBy: sum
 		sourceColumn: is_holiday
 
@@ -113,21 +124,23 @@ table dim_date
 
 	column fiscal_quarter
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 2d8f21ac-332c-42fb-b133-2ee4359140e9
+		isNullable: false
+		sourceProviderType: varchar(10)
+		lineageTag: 206e8bed-7b28-4137-9940-ab947d9b791d
 		summarizeBy: none
 		sourceColumn: fiscal_quarter
 
 		annotation SummarizationSetBy = Automatic
 
-	partition dim_date = m
+	partition 'gold dim_date' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    dim_date_Table = gold_Schema{[Name="dim_date",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_dim_date = tijartek_reporting{[Schema="gold",Item="dim_date"]}[Data]
 				in
-				    dim_date_Table
+				    gold_dim_date
+
+	annotation PBI_ResultType = Table
 

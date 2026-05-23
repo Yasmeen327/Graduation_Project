@@ -1,0 +1,28 @@
+table Dax_Measures
+	lineageTag: 1e6d6b7e-e86e-4c08-aa75-c434490c8b25
+
+	measure Measure
+		lineageTag: 0fb195c4-1d98-4ebe-adbd-69f53cf7bb5c
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	column Dummy
+		formatString: 0
+		lineageTag: 985a4668-6a06-4245-8a4d-f391d9ff0fe2
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Dummy]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dax_Measures = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Dummy", INTEGER,
+				    { { 1 } }
+				)
+
+	annotation PBI_Id = 3bd0cd8633b043aeb8ed1ed516417eb6
+

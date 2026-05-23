@@ -1,0 +1,80 @@
+relationship 2b60b6b2-098e-4a0a-953f-06687fa3c214
+	fromColumn: 'gold fact_events'.date_key
+	toColumn: 'gold dim_date'.date_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 0e08b42d-0c01-4a1d-b3f2-3e8d9c239d11
+	fromColumn: 'gold fact_returns'.return_date_key
+	toColumn: 'gold dim_date'.date_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 9536159e-2311-4bd5-abd1-faaaf7851d44
+	fromColumn: 'gold fact_sales'.date_key
+	toColumn: 'gold dim_date'.date_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 99cf3ea5-746d-4d62-a7c7-a02589dc2690
+	fromColumn: 'gold fact_sales'.location_key
+	toColumn: 'gold dim_location'.location_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 144aa89c-0a83-4fdb-a205-f7daf7c53eab
+	fromColumn: 'gold fact_sales'.promotion_key
+	toColumn: 'gold dim_promotion'.promotion_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 635af075-52fe-4146-8854-9eb30125ed3a
+	isActive: false
+	fromColumn: 'gold fact_sales'.seller_key
+	toColumn: 'gold dim_seller'.seller_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 1aee5053-5f83-40f1-ade6-965e9b507b40
+	fromColumn: 'gold fact_shipments'.delivered_date_key
+	toColumn: 'gold dim_date'.date_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 799b0121-6adf-4841-9948-8cfba46219d1
+	isActive: false
+	fromColumn: 'gold fact_shipments'.shipped_date_key
+	toColumn: 'gold dim_date'.date_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 6be7af80-74b0-4461-8cb7-4c327c479cac
+	fromColumn: 'gold fact_shipments'.location_key
+	toColumn: 'gold dim_location'.location_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 929d1db4-976b-d364-892e-a02962ab2225
+	fromColumn: 'gold fact_sales'.product_key
+	toColumn: 'gold dim_product'.product_key
+
+relationship 9b930d53-493c-7b13-80fd-5b27d4d89ce8
+	fromColumn: 'gold fact_returns'.product_key
+	toColumn: 'gold dim_product'.product_key
+
+relationship 9634a53c-06eb-d182-9da2-7ed2d8e61862
+	fromColumn: 'gold fact_returns'.customer_key
+	toColumn: 'gold dim_customer'.customer_key
+
+relationship 465bcadf-133e-f9c1-d7a7-7b995cd5466f
+	fromColumn: 'gold fact_sales'.customer_key
+	toColumn: 'gold dim_customer'.customer_key
+
+relationship 565c0a8e-14a3-97d0-d873-c464afaf887d
+	fromColumn: 'gold fact_events'.customer_key
+	toColumn: 'gold dim_customer'.customer_key
+
+relationship 3bada97e-bcfd-621e-834e-61d8c5f44831
+	fromColumn: 'gold fact_sales'.order_id
+	toColumn: 'gold dim_payment'.order_id
+
