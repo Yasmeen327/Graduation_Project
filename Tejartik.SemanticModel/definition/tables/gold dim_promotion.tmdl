@@ -1,20 +1,22 @@
-table dim_promotion
-	lineageTag: db72c0d7-e30e-4104-9221-cdfb519b9e5a
+table 'gold dim_promotion'
+	lineageTag: d86506bc-5061-4b53-b85a-3b40dacee191
 
 	column promotion_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 218bfe9a-6f4e-480f-af83-290701a6de6e
-		summarizeBy: sum
+		lineageTag: 5ca37590-09e2-454d-9e1f-20d49022fd66
+		summarizeBy: none
 		sourceColumn: promotion_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column promotion_id
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 850f2260-c830-4e31-85e3-bbad9d792724
+		isNullable: false
+		sourceProviderType: varchar(50)
+		lineageTag: 3345ccc4-977a-488b-a991-0321af3d5d7f
 		summarizeBy: none
 		sourceColumn: promotion_id
 
@@ -22,8 +24,8 @@ table dim_promotion
 
 	column name
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: b86583db-2ef0-4346-a72d-414d11852227
+		sourceProviderType: nvarchar(150)
+		lineageTag: feb3a9ee-67bc-4216-a7c7-e7376bb66a31
 		summarizeBy: none
 		sourceColumn: name
 
@@ -31,8 +33,8 @@ table dim_promotion
 
 	column discount_type
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: a48f7331-c439-4db3-a093-39406c341f43
+		sourceProviderType: varchar(50)
+		lineageTag: bab1bd50-676a-460b-824b-caf9b7b2e744
 		summarizeBy: none
 		sourceColumn: discount_type
 
@@ -40,8 +42,8 @@ table dim_promotion
 
 	column platform
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: c39ab2dd-72e1-4ad6-9333-ba7826ee7beb
+		sourceProviderType: varchar(50)
+		lineageTag: 6a66a038-f7f7-44ff-a857-e3f2b0e280ce
 		summarizeBy: none
 		sourceColumn: platform
 
@@ -51,7 +53,7 @@ table dim_promotion
 		dataType: dateTime
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: af7923fa-7d4d-45fa-bc46-1f68fe52eef1
+		lineageTag: 4262b522-8440-40d3-97b5-e909afbbdf4e
 		summarizeBy: none
 		sourceColumn: start_date
 
@@ -63,7 +65,7 @@ table dim_promotion
 		dataType: dateTime
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: 6f63527d-aa16-4cb0-840d-1afdd1dc29b6
+		lineageTag: fff8d2fc-dac8-4d31-b120-0f7580986309
 		summarizeBy: none
 		sourceColumn: end_date
 
@@ -74,24 +76,23 @@ table dim_promotion
 	column budget
 		dataType: double
 		sourceProviderType: decimal(12, 2)
-		lineageTag: 37ade603-d190-498f-b11e-640e6e0c0f43
-		summarizeBy: sum
+		lineageTag: 41b3391f-1808-4d06-96b7-730fd889232f
+		summarizeBy: none
 		sourceColumn: budget
 
 		annotation SummarizationSetBy = Automatic
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition dim_promotion = m
+	partition 'gold dim_promotion' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    dim_promotion_Table = gold_Schema{[Name="dim_promotion",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_dim_promotion = tijartek_reporting{[Schema="gold",Item="dim_promotion"]}[Data]
 				in
-				    dim_promotion_Table
+				    gold_dim_promotion
 
 	annotation PBI_ResultType = Table
 

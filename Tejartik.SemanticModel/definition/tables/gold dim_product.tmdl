@@ -1,20 +1,22 @@
-table dim_product
-	lineageTag: e3adf7c3-f4cf-4d4b-b519-1dbe462cc799
+table 'gold dim_product'
+	lineageTag: 7bea1e10-3ea4-4ac6-b0c4-3982d529b509
 
 	column product_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 98c8e848-55f7-4e52-b3e4-9f8837e623e3
-		summarizeBy: sum
+		lineageTag: 23b8388f-595e-4cdf-98b7-a9c240c60b12
+		summarizeBy: none
 		sourceColumn: product_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column product_id
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: b40ffe38-878c-4fa7-8668-2286a6daff89
+		isNullable: false
+		sourceProviderType: varchar(50)
+		lineageTag: 9315f298-e760-429b-9f4f-2c0677807a28
 		summarizeBy: none
 		sourceColumn: product_id
 
@@ -22,19 +24,24 @@ table dim_product
 
 	column seller_key
 		dataType: int64
+		isHidden
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 906592d7-0d93-4e4e-92c8-c109f36d4b38
+		lineageTag: 83ed6d9f-ebe1-4580-b1be-6e8ecf860ba3
 		summarizeBy: sum
 		sourceColumn: seller_key
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
 	column category_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: a167e1c0-c8b3-4743-88ef-d5e3e4b8b9af
+		lineageTag: 2482e220-8a65-4a43-bcad-e9c1f9095968
 		summarizeBy: sum
 		sourceColumn: category_key
 
@@ -42,8 +49,8 @@ table dim_product
 
 	column name
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 760e74a0-d184-4297-9277-b001ce5f49c4
+		sourceProviderType: nvarchar(255)
+		lineageTag: 985736f5-3dac-40e4-b607-fd47e9505c77
 		summarizeBy: none
 		sourceColumn: name
 
@@ -51,8 +58,8 @@ table dim_product
 
 	column description
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: f1604e17-62cd-45de-b4b5-ebe6185fa471
+		sourceProviderType: nvarchar(max)
+		lineageTag: 545dc1ae-b9d7-4073-bb65-d22693b9e3c0
 		summarizeBy: none
 		sourceColumn: description
 
@@ -60,8 +67,8 @@ table dim_product
 
 	column price
 		dataType: double
-		sourceProviderType: double
-		lineageTag: 9c352d71-c192-42b5-86cb-bc6da222d88f
+		sourceProviderType: decimal(18, 2)
+		lineageTag: 0b65a095-d50c-47f3-9eb6-2af8c159b0b3
 		summarizeBy: sum
 		sourceColumn: price
 
@@ -71,8 +78,8 @@ table dim_product
 
 	column weight
 		dataType: double
-		sourceProviderType: decimal(8, 2)
-		lineageTag: b6e7ba9c-6b17-4ab4-b362-c17d88fd10e5
+		sourceProviderType: decimal(10, 2)
+		lineageTag: f56d6fe4-53c5-4d78-88ec-b75aed18adcc
 		summarizeBy: sum
 		sourceColumn: weight
 
@@ -84,7 +91,7 @@ table dim_product
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 45832b72-bfc7-489a-8b6d-f0ef23466ad0
+		lineageTag: 7ba8c21d-09a8-41b8-bc08-3957e7f36225
 		summarizeBy: sum
 		sourceColumn: is_fragile
 
@@ -92,26 +99,17 @@ table dim_product
 
 	column category_name
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 6440ff30-5f59-4928-aa63-30087d39e25f
+		sourceProviderType: varchar(100)
+		lineageTag: 15a4f65c-ae40-41bc-b5b2-6cf586df0d59
 		summarizeBy: none
 		sourceColumn: category_name
 
 		annotation SummarizationSetBy = Automatic
 
-	column parent_category
-		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: e0bec813-f31e-40e3-b55c-7673a7116973
-		summarizeBy: none
-		sourceColumn: parent_category
-
-		annotation SummarizationSetBy = Automatic
-
 	column commission_rate
 		dataType: double
-		sourceProviderType: double
-		lineageTag: c6722c4d-0c36-49d7-b250-fadefd1a253e
+		sourceProviderType: decimal(6, 4)
+		lineageTag: 8f1c2ca5-ac91-40fa-9a4b-05cdcec163b8
 		summarizeBy: sum
 		sourceColumn: commission_rate
 
@@ -123,7 +121,7 @@ table dim_product
 		dataType: int64
 		formatString: 0
 		sourceProviderType: tinyint
-		lineageTag: 290a9d5d-f416-42e6-a761-7a1455b2d098
+		lineageTag: 21d04590-d108-443f-832e-e1a3c568298b
 		summarizeBy: sum
 		sourceColumn: is_current
 
@@ -133,7 +131,7 @@ table dim_product
 		dataType: dateTime
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: 8ce486bf-94d1-44e5-a226-48a0605d81b1
+		lineageTag: b9c1864b-9f5c-4897-9517-5121caa0f61f
 		summarizeBy: none
 		sourceColumn: effective_from
 
@@ -145,7 +143,7 @@ table dim_product
 		dataType: dateTime
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: f30a466f-48c5-4e2f-988d-5405ac719125
+		lineageTag: 72138ac4-bc0b-4e63-b4dc-87b60d53c357
 		summarizeBy: none
 		sourceColumn: effective_to
 
@@ -153,16 +151,15 @@ table dim_product
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	partition dim_product = m
+	partition 'gold dim_product' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    dim_product_Table = gold_Schema{[Name="dim_product",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_dim_product = tijartek_reporting{[Schema="gold",Item="dim_product"]}[Data]
 				in
-				    dim_product_Table
+				    gold_dim_product
 
 	annotation PBI_ResultType = Table
 

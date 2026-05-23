@@ -1,0 +1,72 @@
+table 'gold dim_location'
+	lineageTag: 71936ac7-3491-4db3-8be0-0badbe0b981a
+
+	column location_key
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 97f2460f-8687-4e36-adb2-06d6e4c69c2b
+		summarizeBy: none
+		sourceColumn: location_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_id
+		dataType: string
+		isNullable: false
+		sourceProviderType: varchar(50)
+		lineageTag: 2babf62f-2cc7-4080-91d1-5bddf82c409b
+		summarizeBy: none
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column city
+		dataType: string
+		sourceProviderType: nvarchar(100)
+		lineageTag: fa42101b-1d69-4391-acaf-37d8f654c507
+		summarizeBy: none
+		sourceColumn: city
+
+		annotation SummarizationSetBy = Automatic
+
+	column region
+		dataType: string
+		sourceProviderType: nvarchar(100)
+		lineageTag: 6bc35f10-0712-410a-a0ba-4134872c400b
+		summarizeBy: none
+		sourceColumn: region
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		sourceProviderType: nvarchar(100)
+		lineageTag: 9f09df31-9a75-45af-aec8-9e6141ffe0b5
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column timezone
+		dataType: string
+		sourceProviderType: varchar(50)
+		lineageTag: a40690b3-ad08-4bed-81c8-b91af80b7012
+		summarizeBy: none
+		sourceColumn: timezone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold dim_location' = m
+		mode: directQuery
+		source =
+				let
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_dim_location = tijartek_reporting{[Schema="gold",Item="dim_location"]}[Data]
+				in
+				    gold_dim_location
+
+	annotation PBI_ResultType = Table
+

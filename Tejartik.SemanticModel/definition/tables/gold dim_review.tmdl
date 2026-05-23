@@ -1,11 +1,12 @@
-table dim_review
-	lineageTag: fcb566e5-2609-4175-9b22-218c33fa5215
+table 'gold dim_review'
+	lineageTag: 1db13e34-2ba5-4e99-84ed-86f410f10bed
 
 	column review_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: bigint
-		lineageTag: 3a1011a8-a881-4448-aed8-4a0399413914
+		lineageTag: 83bc832b-bd44-4bb0-a6d8-ffe415a89faf
 		summarizeBy: sum
 		sourceColumn: review_key
 
@@ -13,9 +14,10 @@ table dim_review
 
 	column product_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 29b6fe4f-cc58-4641-b471-254d97fd6d32
+		lineageTag: 169d74ca-1c8b-477f-9046-3f201f9a2a4c
 		summarizeBy: sum
 		sourceColumn: product_key
 
@@ -23,9 +25,10 @@ table dim_review
 
 	column customer_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: c0a67e6a-1b96-48c4-8c8d-813d29dc82a9
+		lineageTag: a69a4c5a-8f0c-4672-b890-6b261e27bb11
 		summarizeBy: sum
 		sourceColumn: customer_key
 
@@ -33,9 +36,10 @@ table dim_review
 
 	column date_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: cd011625-d40f-4746-838b-376f82ee6083
+		lineageTag: e3ac418d-897b-460d-a52c-1071e2fdf594
 		summarizeBy: sum
 		sourceColumn: date_key
 
@@ -43,8 +47,8 @@ table dim_review
 
 	column rating
 		dataType: double
-		sourceProviderType: double
-		lineageTag: 5db81049-7789-4225-a900-5f843702f739
+		sourceProviderType: decimal(3, 2)
+		lineageTag: 0349c697-0f35-4fed-b75f-737be7e5aaad
 		summarizeBy: sum
 		sourceColumn: rating
 
@@ -54,23 +58,24 @@ table dim_review
 
 	column sentiment
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: dd558221-fe10-4e2d-967c-8acc88d21f3c
+		sourceProviderType: varchar(50)
+		lineageTag: 9a591975-e796-4246-825f-5cd4cd464d72
 		summarizeBy: none
 		sourceColumn: sentiment
 
 		annotation SummarizationSetBy = Automatic
 
-	partition dim_review = m
+	partition 'gold dim_review' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    dim_review_Table = gold_Schema{[Name="dim_review",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_dim_review = tijartek_reporting{[Schema="gold",Item="dim_review"]}[Data]
 				in
-				    dim_review_Table
+				    gold_dim_review
+
+	changedProperty = Name
 
 	annotation PBI_ResultType = Table
 
