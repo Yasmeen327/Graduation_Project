@@ -73,7 +73,5 @@ table 'gold dim_payment'
 				in
 				    gold_dim_payment
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
 

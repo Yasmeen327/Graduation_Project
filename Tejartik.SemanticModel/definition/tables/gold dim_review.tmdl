@@ -75,7 +75,5 @@ table 'gold dim_review'
 				in
 				    gold_dim_review
 
-	changedProperty = Name
-
 	annotation PBI_ResultType = Table
 
