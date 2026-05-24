@@ -26,6 +26,7 @@ ref table 'gold fact_events'
 ref table 'gold fact_returns'
 ref table 'gold fact_sales'
 ref table 'gold fact_shipments'
+ref table Dax_Measures
 
 ref cultureInfo en-US
 

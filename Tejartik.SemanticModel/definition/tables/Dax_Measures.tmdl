@@ -1,0 +1,82 @@
+table Dax_Measures
+	lineageTag: 3b06cca5-933c-4710-970b-ad98c45b2827
+
+	measure 'Total Revenue' = SUM('gold fact_sales'[gross_revenue])
+		lineageTag: ad57c796-8bd6-458b-b393-bd82fe8d1606
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Orders' = DISTINCTCOUNT('gold fact_sales'[order_id])
+		formatString: 0
+		lineageTag: bda0948d-3623-43a2-8e9f-fc91d8af98ac
+
+	measure AOV = DIVIDE([Total Revenue], [Total Orders])
+		lineageTag: e0f34f19-cda5-4bec-96d1-e5a65742bdbb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Return Rate' = ```
+			
+			VAR ReturnedOrders = 
+			    CALCULATE(
+			        DISTINCTCOUNT('gold fact_sales'[order_id]),
+			        FILTER('gold fact_returns', NOT(ISBLANK('gold fact_returns'[return_key])))
+			    )
+			VAR TotalOrders = [Total Orders]
+			RETURN DIVIDE(ReturnedOrders, TotalOrders)
+			```
+		lineageTag: c65c1d57-a274-4d11-9d99-c24011e11653
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Customers' = DISTINCTCOUNT('gold dim_customer'[customer_key])
+		formatString: 0
+		lineageTag: 52c1b752-e58d-4c1a-83c0-989b325d54d3
+
+	measure 'On-Time Delivery %' =
+			
+			VAR OnTime = CALCULATE(COUNT('gold fact_shipments'[shipment_key]), 'gold fact_shipments'[is_on_time] = 1)
+			VAR TotalShipped = COUNT('gold fact_shipments'[shipment_key])
+			RETURN DIVIDE(OnTime, TotalShipped)
+		lineageTag: 2f7b30a2-46d5-4375-a206-24f768c68337
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Delivery Days' = AVERAGE('gold fact_shipments'[delivery_days])
+		lineageTag: 863768c9-d04d-49df-b23b-46bb12f64e14
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Conversion Rate' =
+			
+			VAR TotalOrders = [Total Orders]
+			VAR TotalSessions = DISTINCTCOUNT('gold fact_events'[session_id])
+			RETURN DIVIDE(TotalOrders, TotalSessions)
+		lineageTag: fdccd356-89f6-44f4-9ae4-b68f1dd35899
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value1
+		isHidden
+		lineageTag: d926992d-8f2e-44f3-bcdf-8ca2ecf15a3e
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Value1]
+
+		annotation SummarizationSetBy = Automatic
+
+	column Value2
+		formatString: 0
+		lineageTag: b2da9ca4-e311-4070-bfa8-a4f16b2b1aa3
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value2]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Dax_Measures = calculated
+		mode: import
+		source = { ("KPI", 1) }
+
+	annotation PBI_Id = 6c5689891235406ba97eb703a854bde6
+

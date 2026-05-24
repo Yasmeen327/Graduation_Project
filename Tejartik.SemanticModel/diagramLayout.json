@@ -163,6 +163,18 @@
             "width": 234
           },
           "zIndex": 11
+        },
+        {
+          "location": {
+            "x": 1916.8542034244911,
+            "y": 560.99183590303358
+          },
+          "nodeIndex": "Dax_Measures",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
