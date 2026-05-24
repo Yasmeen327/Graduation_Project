@@ -1,11 +1,12 @@
-table fact_sales
-	lineageTag: aac416ff-e71d-40b0-b8d9-4cd49c895f4f
+table 'gold fact_sales'
+	lineageTag: b635bf09-14ec-4e1f-affb-5fce8d32d1fe
 
 	column sales_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: bigint
-		lineageTag: a14159cd-eaea-4a2b-98e6-7e9887af02a2
+		lineageTag: 1a658f8a-beac-4029-8b2f-e90fc863c813
 		summarizeBy: sum
 		sourceColumn: sales_key
 
@@ -13,39 +14,43 @@ table fact_sales
 
 	column date_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 040b81cc-74ca-44ac-9c81-96380513c5e4
-		summarizeBy: sum
+		lineageTag: ae18af22-f06e-4120-b7f8-4f33f102ef8b
+		summarizeBy: none
 		sourceColumn: date_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column customer_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: e8587a1a-c01e-43a7-8026-78824dc3901e
-		summarizeBy: sum
+		lineageTag: c2e0fd7e-018e-4537-ab19-f86559d9e75d
+		summarizeBy: none
 		sourceColumn: customer_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column product_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: f43bed6d-b3fb-469c-92ba-d97dbb938aca
-		summarizeBy: sum
+		lineageTag: cef51c1b-15e6-4013-9742-f726576559f4
+		summarizeBy: none
 		sourceColumn: product_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column seller_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: e63203dd-d2ca-449f-9151-9916a7ad177d
+		lineageTag: 414eb676-3f20-49b5-a897-f42d2c3c8e25
 		summarizeBy: sum
 		sourceColumn: seller_key
 
@@ -55,8 +60,8 @@ table fact_sales
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 6482bb32-b1a7-44cb-9939-9df0795035c6
-		summarizeBy: sum
+		lineageTag: 24da75fa-615c-4d47-a4f4-480dcd74b7d4
+		summarizeBy: none
 		sourceColumn: location_key
 
 		annotation SummarizationSetBy = Automatic
@@ -65,18 +70,19 @@ table fact_sales
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: e7f2c227-0fec-4e4b-9c79-70b9230e47d1
-		summarizeBy: sum
+		lineageTag: e5e36ba9-52b1-4d82-9076-8b265b805e2d
+		summarizeBy: none
 		sourceColumn: promotion_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column order_id
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: bigint
-		lineageTag: b3df2034-e01b-4d03-8297-adc4e16c32d5
-		summarizeBy: sum
+		lineageTag: 642130e3-a0d6-4f83-a51e-0264bd3e6ac1
+		summarizeBy: none
 		sourceColumn: order_id
 
 		annotation SummarizationSetBy = Automatic
@@ -85,7 +91,7 @@ table fact_sales
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: eb54cd00-e5fb-4312-aedd-d170eb940e8a
+		lineageTag: b09f72e4-ef5e-4900-a663-6747227c5bec
 		summarizeBy: sum
 		sourceColumn: quantity_sold
 
@@ -94,7 +100,7 @@ table fact_sales
 	column unit_price
 		dataType: double
 		sourceProviderType: decimal(10, 2)
-		lineageTag: ad2ea03c-7c67-40b7-968b-58218e66e64d
+		lineageTag: 0023986f-1c6f-4fd7-91e7-93a24a991c9c
 		summarizeBy: sum
 		sourceColumn: unit_price
 
@@ -104,8 +110,8 @@ table fact_sales
 
 	column tax_amount
 		dataType: double
-		sourceProviderType: double
-		lineageTag: 5a5a9667-869a-44ba-98a8-569457acfc9c
+		sourceProviderType: decimal(14, 4)
+		lineageTag: f79bcec0-8375-4a7a-a771-31fca43c7172
 		summarizeBy: sum
 		sourceColumn: tax_amount
 
@@ -116,7 +122,7 @@ table fact_sales
 	column discount_amount
 		dataType: double
 		sourceProviderType: decimal(10, 2)
-		lineageTag: eb612e70-fd82-4f08-95be-3781eb6e8086
+		lineageTag: 1179bdd8-49bc-4ac2-98d0-7eb5799298e1
 		summarizeBy: sum
 		sourceColumn: discount_amount
 
@@ -126,8 +132,8 @@ table fact_sales
 
 	column gross_revenue
 		dataType: double
-		sourceProviderType: double
-		lineageTag: a4d88cd9-4e64-4bd8-897c-2b9dea60575f
+		sourceProviderType: decimal(18, 4)
+		lineageTag: eab881c9-8efb-467e-9c96-6cde58660755
 		summarizeBy: sum
 		sourceColumn: gross_revenue
 
@@ -137,8 +143,8 @@ table fact_sales
 
 	column net_revenue
 		dataType: double
-		sourceProviderType: double
-		lineageTag: 94cea09d-4de0-4d77-8a94-28b742a1e997
+		sourceProviderType: decimal(18, 4)
+		lineageTag: f12c8b2b-d543-4868-86c5-0e4a057f4ce8
 		summarizeBy: sum
 		sourceColumn: net_revenue
 
@@ -148,8 +154,8 @@ table fact_sales
 
 	column shipping_fee
 		dataType: double
-		sourceProviderType: double
-		lineageTag: 0b25df64-8257-4a65-b06a-4e5477a07119
+		sourceProviderType: decimal(18, 4)
+		lineageTag: 5e6feddb-0094-4775-96d8-23245ef0f53c
 		summarizeBy: sum
 		sourceColumn: shipping_fee
 
@@ -157,16 +163,15 @@ table fact_sales
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	partition fact_sales = m
+	partition 'gold fact_sales' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    fact_sales_Table = gold_Schema{[Name="fact_sales",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_fact_sales = tijartek_reporting{[Schema="gold",Item="fact_sales"]}[Data]
 				in
-				    fact_sales_Table
+				    gold_fact_sales
 
 	annotation PBI_ResultType = Table
 

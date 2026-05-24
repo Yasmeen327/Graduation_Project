@@ -1,20 +1,22 @@
-table dim_customer
-	lineageTag: b470fd81-3363-4110-8d8e-efd9a26e4920
+table 'gold dim_customer'
+	lineageTag: b8705a0e-a0f7-4661-bd31-94903c5c4e74
 
 	column customer_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 9a070ac1-3f3a-422f-ba6d-5247691a47f9
-		summarizeBy: sum
+		lineageTag: db8217aa-1c0d-451e-a682-a29b2bc51e90
+		summarizeBy: none
 		sourceColumn: customer_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column customer_id
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: baa543af-d3e9-41d9-9cbd-26d1b41fe132
+		isNullable: false
+		sourceProviderType: varchar(50)
+		lineageTag: 6f98538e-76e5-4646-9397-c93d884beef1
 		summarizeBy: none
 		sourceColumn: customer_id
 
@@ -22,9 +24,10 @@ table dim_customer
 
 	column location_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: ac94d326-5304-4cc0-8340-03aaa3c2585a
+		lineageTag: 5c79acad-dc52-41db-87dd-51cab4b0a653
 		summarizeBy: sum
 		sourceColumn: location_key
 
@@ -32,8 +35,8 @@ table dim_customer
 
 	column name
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: b8ba16a3-4c36-457e-b4ac-b93ca200298d
+		sourceProviderType: nvarchar(150)
+		lineageTag: 65dc403e-547d-4654-ba9a-7f854603d889
 		summarizeBy: none
 		sourceColumn: name
 
@@ -41,8 +44,8 @@ table dim_customer
 
 	column email
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 8f7438e2-8b85-433c-a5bd-732afecfc3ca
+		sourceProviderType: varchar(150)
+		lineageTag: ebfdfc79-e871-4976-927d-53be3096b838
 		summarizeBy: none
 		sourceColumn: email
 
@@ -50,8 +53,8 @@ table dim_customer
 
 	column phone
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 2413e92b-b773-4c94-9fe9-043421f21aae
+		sourceProviderType: varchar(30)
+		lineageTag: c22fecd9-8d5f-449d-aad2-88711497b921
 		summarizeBy: none
 		sourceColumn: phone
 
@@ -59,8 +62,8 @@ table dim_customer
 
 	column gender
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 53df1595-0c93-4c5d-bbe8-79ed721c6104
+		sourceProviderType: varchar(20)
+		lineageTag: 030e5316-01fc-48ca-b5ec-be2f2e22e7b7
 		summarizeBy: none
 		sourceColumn: gender
 
@@ -68,8 +71,8 @@ table dim_customer
 
 	column age_band
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 7a815568-6699-44cb-9f5f-a958b8328361
+		sourceProviderType: varchar(20)
+		lineageTag: 9e20660f-2ec4-43ca-a4fc-7b4e3af9283e
 		summarizeBy: none
 		sourceColumn: age_band
 
@@ -79,7 +82,7 @@ table dim_customer
 		dataType: dateTime
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: 306ded52-6d43-46de-bbb0-74c4ad00ebf2
+		lineageTag: 4334afb6-934a-47e8-a12b-89d2cfaa5da3
 		summarizeBy: none
 		sourceColumn: registration_date
 
@@ -89,9 +92,10 @@ table dim_customer
 
 	column is_current
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: tinyint
-		lineageTag: 9918f4c0-bef0-4165-af34-30e3de6316ab
+		lineageTag: fd58d6c8-543a-4e9b-ac00-0618aebd86ea
 		summarizeBy: sum
 		sourceColumn: is_current
 
@@ -99,9 +103,10 @@ table dim_customer
 
 	column effective_from
 		dataType: dateTime
+		isNullable: false
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: 9d6a2b89-897f-4af3-92c2-095e406babc5
+		lineageTag: 9c2d1390-b747-4bb3-a531-90df4417da40
 		summarizeBy: none
 		sourceColumn: effective_from
 
@@ -113,7 +118,7 @@ table dim_customer
 		dataType: dateTime
 		formatString: Long Date
 		sourceProviderType: date
-		lineageTag: 4246c5cb-f8db-4e9f-9cdb-06694dbc98e1
+		lineageTag: a208a506-b9bf-4a77-9b25-797cb62a3863
 		summarizeBy: none
 		sourceColumn: effective_to
 
@@ -121,14 +126,15 @@ table dim_customer
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	partition dim_customer = m
+	partition 'gold dim_customer' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    dim_customer_Table = gold_Schema{[Name="dim_customer",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_dim_customer = tijartek_reporting{[Schema="gold",Item="dim_customer"]}[Data]
 				in
-				    dim_customer_Table
+				    gold_dim_customer
+
+	annotation PBI_ResultType = Table
 

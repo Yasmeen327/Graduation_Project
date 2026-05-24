@@ -1,11 +1,12 @@
-table fact_events
-	lineageTag: 8223e988-9ed2-4d42-a81e-1424e3e08ada
+table 'gold fact_events'
+	lineageTag: b33ea757-5b1f-4964-91a8-cea4c15a9be7
 
 	column event_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: bigint
-		lineageTag: 84f77f4f-c366-4f75-ae49-c29367587170
+		lineageTag: daecf1fd-216e-4dbf-92e9-6b2d62835c11
 		summarizeBy: sum
 		sourceColumn: event_key
 
@@ -13,10 +14,11 @@ table fact_events
 
 	column customer_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 84feb6be-e1a0-4f56-a878-0d3001a6127b
-		summarizeBy: sum
+		lineageTag: b64fbf29-4460-49e4-9539-81ea159f785d
+		summarizeBy: none
 		sourceColumn: customer_key
 
 		annotation SummarizationSetBy = Automatic
@@ -25,7 +27,7 @@ table fact_events
 		dataType: int64
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 52c54358-af8c-4d62-a02a-90880757feb5
+		lineageTag: a5b87426-1880-4ef7-a660-005a1942a545
 		summarizeBy: sum
 		sourceColumn: product_key
 
@@ -33,18 +35,19 @@ table fact_events
 
 	column date_key
 		dataType: int64
+		isNullable: false
 		formatString: 0
 		sourceProviderType: int
-		lineageTag: 89a26445-53e4-4822-a1cf-817d5c0fcc68
-		summarizeBy: sum
+		lineageTag: cdde84dd-bfcf-45ec-8805-fc7cbb1aec7f
+		summarizeBy: none
 		sourceColumn: date_key
 
 		annotation SummarizationSetBy = Automatic
 
 	column session_id
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 393b27bb-bd1f-4abe-9c4a-17074b81952d
+		sourceProviderType: varchar(100)
+		lineageTag: 394b89ab-144a-4683-9f23-68fbfe980dfe
 		summarizeBy: none
 		sourceColumn: session_id
 
@@ -52,8 +55,8 @@ table fact_events
 
 	column event_type
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: a219f943-0d4f-458f-a3c8-db5d6ce8b55a
+		sourceProviderType: varchar(50)
+		lineageTag: 46e31abf-57f3-464f-bc95-4e64d1d45792
 		summarizeBy: none
 		sourceColumn: event_type
 
@@ -61,8 +64,8 @@ table fact_events
 
 	column page_type
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: 46552e4e-2c13-4354-8142-efe6bb88995a
+		sourceProviderType: varchar(50)
+		lineageTag: 17b461cd-d814-4bdf-a615-c97e2e9e7219
 		summarizeBy: none
 		sourceColumn: page_type
 
@@ -70,8 +73,8 @@ table fact_events
 
 	column device_type
 		dataType: string
-		sourceProviderType: nvarchar(65535)
-		lineageTag: fbed0021-0b1e-432d-a07e-9728aa164c96
+		sourceProviderType: varchar(50)
+		lineageTag: 08a30865-9c08-4bd4-8a03-16adba3f5370
 		summarizeBy: none
 		sourceColumn: device_type
 
@@ -81,22 +84,21 @@ table fact_events
 		dataType: dateTime
 		formatString: General Date
 		sourceProviderType: datetime2
-		lineageTag: 279f669a-e6e3-4835-a98a-0ffcb182ebc7
+		lineageTag: 376f388f-3663-40e7-8601-8babe53087ab
 		summarizeBy: none
 		sourceColumn: event_timestamp
 
 		annotation SummarizationSetBy = Automatic
 
-	partition fact_events = m
+	partition 'gold fact_events' = m
 		mode: directQuery
 		source =
 				let
-				    Source = DatabricksMultiCloud.Catalogs("dbc-da15e658-afcd.cloud.databricks.com", "/sql/1.0/warehouses/4d3564fb731b87ef", [Catalog = "", Database = ""]),
-				    tijartek_Database = Source{[Name="tijartek",Kind="Database"]}[Data],
-				    gold_Schema = tijartek_Database{[Name="gold",Kind="Schema"]}[Data],
-				    fact_events_Table = gold_Schema{[Name="fact_events",Kind="Table"]}[Data]
+				    Source = Sql.Databases("tijartik-sql-server.database.windows.net"),
+				    tijartek_reporting = Source{[Name="tijartek_reporting"]}[Data],
+				    gold_fact_events = tijartek_reporting{[Schema="gold",Item="fact_events"]}[Data]
 				in
-				    fact_events_Table
+				    gold_fact_events
 
 	annotation PBI_ResultType = Table
 
