@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "73b9178737af8da10134",
   "position": {
-    "x": 266.36871508379892,
-    "y": 0,
+    "x": 339.84000000000003,
+    "y": 53.28,
     "z": 0,
-    "height": 117.98882681564247,
-    "width": 278.88268156424584,
+    "height": 139.68,
+    "width": 260.64,
     "tabOrder": 0
   },
   "visual": {
@@ -110,6 +110,38 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "verticalSpacing": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Total Discount"
+          }
+        }
+      ],
+      "label": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'aboveValue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Total Discount"
           }
         }
       ]

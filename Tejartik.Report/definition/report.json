@@ -9,6 +9,15 @@
         "page": "2.3.0"
       },
       "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "Tijartik_Analytics_Theme05696334128689007.json",
+      "reportVersionAtImport": {
+        "visual": "2.5.0",
+        "report": "3.1.0",
+        "page": "2.3.0"
+      },
+      "type": "RegisteredResources"
     }
   },
   "objects": {
@@ -48,6 +57,27 @@
           "name": "CY25SU12",
           "path": "BaseThemes/CY25SU12.json",
           "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "Tijartik_Analytics_Theme05696334128689007.json",
+          "path": "Tijartik_Analytics_Theme05696334128689007.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "photo_2026-05-25_17-17-51-remo7986065197071927.png",
+          "path": "photo_2026-05-25_17-17-51-remo7986065197071927.png",
+          "type": "Image"
+        },
+        {
+          "name": "photo_2026-05-25_17-17-51-remo7895555083874773.png",
+          "path": "photo_2026-05-25_17-17-51-remo7895555083874773.png",
+          "type": "Image"
         }
       ]
     }

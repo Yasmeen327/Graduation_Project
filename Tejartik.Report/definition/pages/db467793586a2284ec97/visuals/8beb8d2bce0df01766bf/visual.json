@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "8beb8d2bce0df01766bf",
   "position": {
-    "x": 573.854748603352,
-    "y": 0,
+    "x": 678.24,
+    "y": 51.84,
     "z": 1,
-    "height": 132.2905027932961,
-    "width": 278.88268156424584,
+    "height": 139.68,
+    "width": 259.2,
     "tabOrder": 1
   },
   "visual": {
@@ -92,6 +92,38 @@
           },
           "selector": {
             "id": "default"
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "verticalSpacing": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Best Month Name"
+          }
+        }
+      ],
+      "label": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'aboveValue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Best Month Name"
           }
         }
       ]

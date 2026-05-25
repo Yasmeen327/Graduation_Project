@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "62f4fd9cb7c97f4842cf",
   "position": {
-    "x": 1001.1173184357542,
-    "y": 14.301675977653632,
+    "x": 992.16000000000008,
+    "y": 53.28,
     "z": 2,
-    "height": 117.98882681564247,
-    "width": 278.88268156424584,
+    "height": 138.24,
+    "width": 260.64,
     "tabOrder": 2
   },
   "visual": {
@@ -110,6 +110,38 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "label": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'aboveValue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Projected Annual"
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "verticalSpacing": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Projected Annual"
           }
         }
       ]

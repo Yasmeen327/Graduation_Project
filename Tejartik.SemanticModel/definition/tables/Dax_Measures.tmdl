@@ -21,9 +21,8 @@ table Dax_Measures
 			    [Total Returns],
 			    DISTINCTCOUNT('gold fact_sales'[order_id])
 			)
+		formatString: 0%;-0%;0%
 		lineageTag: c65c1d57-a274-4d11-9d99-c24011e11653
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Total Customers' = DISTINCTCOUNT('gold dim_customer'[customer_key])
 		formatString: 0
@@ -150,29 +149,6 @@ table Dax_Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Dynamic Segment' =
-			
-			VAR CurrentSegment = SELECTEDVALUE(Segments[Segment])
-			VAR CurrentMin = SELECTEDVALUE(Segments[Min LTV])
-			VAR CurrentMax = SELECTEDVALUE(Segments[Max LTV])
-			VAR CustomerValue = [Customer LTV]
-			RETURN
-			IF(
-			    NOT(ISBLANK(CurrentSegment)),
-			    -- When a segment is selected/filtered, show its name
-			    CurrentSegment,
-			    -- Otherwise, assign segment based on customer value
-			    SWITCH(
-			        TRUE(),
-			        CustomerValue >= 10000, "Champions",
-			        CustomerValue >= 5000, "Loyal",
-			        CustomerValue >= 1000, "Regular",
-			        CustomerValue >= 1, "New",
-			        "At Risk"
-			    )
-			)
-		lineageTag: 475709b6-f132-45a0-98bb-99abfe240fff
-
 	measure 'Avg CLV by Segment' =
 			
 			AVERAGEX(
@@ -192,9 +168,10 @@ table Dax_Measures
 			    [Total Revenue],
 			    'gold fact_sales'[promotion_key] <> BLANK()
 			)
+		formatString: 0
 		lineageTag: e7652b43-db89-46a3-a937-e106fa3549a1
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"isDecimal":true}
 
 	measure 'Non Promo Revenue' =
 			
@@ -202,8 +179,10 @@ table Dax_Measures
 			    [Total Revenue],
 			    'gold fact_sales'[promotion_key] = BLANK()
 			)
-		formatString: \$#,0;(\$#,0);\$#,0
+		formatString: #,0
 		lineageTag: 7ccc9895-f51e-4b6c-b314-48823560d05e
+
+		annotation PBI_FormatHint = {"isDecimal":true}
 
 	measure 'Promo Orders' =
 			
@@ -252,9 +231,8 @@ table Dax_Measures
 			    [Approved Returns],
 			    [Total Returns]
 			)
+		formatString: 0%;-0%;0%
 		lineageTag: f32a419c-3195-43a5-9394-dd96e9b70e61
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Repeat Customers' =
 			

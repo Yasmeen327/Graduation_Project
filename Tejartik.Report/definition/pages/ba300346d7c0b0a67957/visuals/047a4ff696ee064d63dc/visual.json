@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
-  "name": "24c4f0dabce402e49ed5",
+  "name": "047a4ff696ee064d63dc",
   "position": {
-    "x": 761.76,
-    "y": 470.88,
+    "x": 200.16,
+    "y": 506.88,
     "z": 6,
-    "height": 249.12,
-    "width": 518.4,
+    "height": 213.12,
+    "width": 1080,
     "tabOrder": 6
   },
   "visual": {
@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "gold dim_promotion"
+                      "Entity": "gold dim_location"
                     }
                   },
-                  "Property": "platform"
+                  "Property": "region"
                 }
               },
-              "queryRef": "gold dim_promotion.platform",
-              "nativeQueryRef": "platform",
+              "queryRef": "gold dim_location.region",
+              "nativeQueryRef": "region",
               "active": true
             }
           ]
@@ -42,11 +42,11 @@
                       "Entity": "Dax_Measures"
                     }
                   },
-                  "Property": "Promotion ROI"
+                  "Property": "Total Customers"
                 }
               },
-              "queryRef": "Dax_Measures.Promotion ROI",
-              "nativeQueryRef": "Promotion ROI"
+              "queryRef": "Dax_Measures.Total Customers",
+              "nativeQueryRef": "Total Customers"
             }
           ]
         }
@@ -61,7 +61,7 @@
                     "Entity": "Dax_Measures"
                   }
                 },
-                "Property": "Promotion ROI"
+                "Property": "Total Customers"
               }
             },
             "direction": "Descending"
@@ -71,7 +71,7 @@
       }
     },
     "objects": {
-      "valueAxis": [
+      "categoryAxis": [
         {
           "properties": {
             "showAxisTitle": {
@@ -84,7 +84,7 @@
           }
         }
       ],
-      "categoryAxis": [
+      "valueAxis": [
         {
           "properties": {
             "showAxisTitle": {
@@ -103,15 +103,15 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "9e66c2e6b4b118d544a0",
+        "name": "03cf17134041e0c7abb7",
         "field": {
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "gold dim_promotion"
+                "Entity": "gold dim_location"
               }
             },
-            "Property": "platform"
+            "Property": "region"
           }
         },
         "type": "Categorical",
@@ -120,7 +120,7 @@
           "From": [
             {
               "Name": "g",
-              "Entity": "gold dim_promotion",
+              "Entity": "gold dim_location",
               "Type": 0
             }
           ],
@@ -138,7 +138,7 @@
                                 "Source": "g"
                               }
                             },
-                            "Property": "platform"
+                            "Property": "region"
                           }
                         }
                       ],
@@ -175,7 +175,7 @@
         }
       },
       {
-        "name": "77afe47f45b861a304ef",
+        "name": "f75c2207043e46232cb4",
         "field": {
           "Measure": {
             "Expression": {
@@ -183,7 +183,7 @@
                 "Entity": "Dax_Measures"
               }
             },
-            "Property": "Promotion ROI"
+            "Property": "Total Customers"
           }
         },
         "type": "Advanced"

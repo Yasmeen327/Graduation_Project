@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "2a59a5b34b70ebed6f54",
   "position": {
-    "x": 175.195530726257,
-    "y": 441.56424581005592,
+    "x": 200.16,
+    "y": 470.88,
     "z": 1,
-    "height": 278.88268156424584,
-    "width": 504.13407821229055,
+    "height": 249.12,
+    "width": 544.32,
     "tabOrder": 1
   },
   "visual": {
@@ -108,6 +108,27 @@
                 }
               }
             }
+          }
+        }
+      ],
+      "dataPoint": [
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 5,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Non Promo Revenue"
           }
         }
       ]

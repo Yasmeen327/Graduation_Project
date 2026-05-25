@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "ab6568544138f2ea4fc0",
   "position": {
-    "x": 184.13407821229052,
-    "y": 0,
+    "x": 200.16,
+    "y": 63.36,
     "z": 1,
-    "height": 139.44134078212292,
-    "width": 180.55865921787711,
+    "height": 139.68,
+    "width": 252,
     "tabOrder": 1
   },
   "visual": {
@@ -50,6 +50,40 @@
         ],
         "isDefaultSort": true
       }
+    },
+    "objects": {
+      "label": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'aboveValue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Return Rate"
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "verticalSpacing": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Return Rate"
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

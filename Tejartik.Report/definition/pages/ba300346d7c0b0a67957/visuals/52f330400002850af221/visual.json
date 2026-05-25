@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "52f330400002850af221",
   "position": {
-    "x": 867.03910614525148,
-    "y": 0,
+    "x": 1025.12,
+    "y": 66.240000000000009,
     "z": 3,
-    "height": 135.86592178770951,
-    "width": 278.88268156424584,
+    "height": 139.68,
+    "width": 254.88,
     "tabOrder": 3
   },
   "visual": {
@@ -50,6 +50,40 @@
         ],
         "isDefaultSort": true
       }
+    },
+    "objects": {
+      "label": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'aboveValue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Avg Customer Spend"
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "verticalSpacing": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Avg Customer Spend"
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }

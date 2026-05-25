@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
   "name": "58dccfbc59bb72ef9a93",
   "position": {
-    "x": 10.726256983240225,
-    "y": 0,
+    "x": 204.48000000000002,
+    "y": 66.240000000000009,
     "z": 0,
-    "height": 200.22346368715085,
-    "width": 278.88268156424584,
+    "height": 139.68,
+    "width": 254.88,
     "tabOrder": 0
   },
   "visual": {
@@ -50,6 +50,40 @@
         ],
         "isDefaultSort": true
       }
+    },
+    "objects": {
+      "label": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'aboveValue'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Total Customers"
+          }
+        }
+      ],
+      "spacing": [
+        {
+          "properties": {
+            "verticalSpacing": {
+              "expr": {
+                "Literal": {
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Dax_Measures.Total Customers"
+          }
+        }
+      ]
     },
     "drillFilterOtherVisuals": true
   }
