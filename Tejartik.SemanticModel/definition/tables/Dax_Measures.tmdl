@@ -15,16 +15,12 @@ table Dax_Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	measure 'Return Rate' = ```
+	measure 'Return Rate' =
 			
-			VAR ReturnedOrders = 
-			    CALCULATE(
-			        DISTINCTCOUNT('gold fact_sales'[order_id]),
-			        FILTER('gold fact_returns', NOT(ISBLANK('gold fact_returns'[return_key])))
-			    )
-			VAR TotalOrders = [Total Orders]
-			RETURN DIVIDE(ReturnedOrders, TotalOrders)
-			```
+			DIVIDE(
+			    [Total Returns],
+			    DISTINCTCOUNT('gold fact_sales'[order_id])
+			)
 		lineageTag: c65c1d57-a274-4d11-9d99-c24011e11653
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
@@ -55,6 +51,293 @@ table Dax_Measures
 		lineageTag: fdccd356-89f6-44f4-9ae4-b68f1dd35899
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue LY' = CALCULATE([Total Revenue], SAMEPERIODLASTYEAR('gold dim_date'[full_date]))
+		lineageTag: 196a525e-6a87-4ea7-a83d-168c11e4781b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'YOY Growth' = DIVIDE([Total Revenue] - [Revenue LY], [Revenue LY])
+		lineageTag: 6a365f22-2984-43ae-82db-5be044f49ee9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Projected Annual' = DIVIDE([Total Revenue], MONTH(TODAY())) * 12
+		lineageTag: 534b20ee-2374-4d5c-b2e4-f3ed95ebc936
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Best Month Name' = CALCULATE(SELECTEDVALUE('gold dim_date'[month_name]), TOPN(1, VALUES('gold dim_date'[month_name]), [Total Revenue]))
+		lineageTag: 408f95ee-cd9b-4fe5-8cb2-4dbace41cf75
+
+	measure 'Total Discount' = SUM('gold fact_sales'[discount_amount])
+		lineageTag: 4b45b3e9-2187-4fd7-8e4a-8f6caeba4afd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Retained Customers' =
+			
+			VAR MaxDate = CALCULATE(MAX('gold dim_date'[full_date]), ALL('gold dim_date'))
+			VAR ThresholdDate = MaxDate - 90
+			RETURN
+			CALCULATE(
+			    DISTINCTCOUNT('gold fact_sales'[customer_key]),
+			    'gold fact_sales'[date_key] >= ThresholdDate
+			)
+		formatString: 0
+		lineageTag: 66c84197-d216-4800-b7d0-f95eb12314d2
+
+	measure 'Retention Rate' = DIVIDE([Retained Customers], [Total Customers])
+		lineageTag: 13be8abb-7c8b-42aa-ba64-e5c65f8073c8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Churn Rate' = 1 - [Retention Rate]
+		lineageTag: 1dca4fc0-7431-4212-96f2-d9ebe041e299
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Retention YoY' = ```
+			
+			VAR CurrentRetention = [Retention Rate]
+			VAR PreviousYearRetention = 
+			    CALCULATE(
+			        [Retention Rate],
+			        SAMEPERIODLASTYEAR('gold dim_date'[full_date])
+			    )
+			RETURN
+			IF(ISBLANK(PreviousYearRetention), BLANK(), CurrentRetention - PreviousYearRetention)
+			```
+		lineageTag: 5d05841d-471f-482f-9d53-88f82e9f40e7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg CLV' =
+			
+			AVERAGEX(
+			    VALUES('gold dim_customer'[customer_key]),
+			    CALCULATE(SUM('gold fact_sales'[net_revenue]))
+			)
+		lineageTag: fc5c4139-0a4b-4821-828f-3ff1fb151167
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Top 10% CLV' = ```
+			
+			VAR TopCustomers = 
+			    TOPN(
+			        ROUND(0.1 * [Total Customers], 0),
+			        ALL('gold dim_customer'),
+			        CALCULATE(SUM('gold fact_sales'[net_revenue])), DESC
+			    )
+			RETURN
+			AVERAGEX(
+			    TopCustomers,
+			    CALCULATE(SUM('gold fact_sales'[net_revenue]))
+			)
+			```
+		lineageTag: 6b8fe858-a8a2-4d15-85ff-efdfef0e8596
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Customer LTV' =
+			
+			SUMX(
+			    VALUES('gold dim_customer'[customer_key]),
+			    CALCULATE(SUM('gold fact_sales'[net_revenue]))
+			)
+		lineageTag: 3eacd877-b918-470b-9431-3514e29dccfd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Dynamic Segment' =
+			
+			VAR CurrentSegment = SELECTEDVALUE(Segments[Segment])
+			VAR CurrentMin = SELECTEDVALUE(Segments[Min LTV])
+			VAR CurrentMax = SELECTEDVALUE(Segments[Max LTV])
+			VAR CustomerValue = [Customer LTV]
+			RETURN
+			IF(
+			    NOT(ISBLANK(CurrentSegment)),
+			    -- When a segment is selected/filtered, show its name
+			    CurrentSegment,
+			    -- Otherwise, assign segment based on customer value
+			    SWITCH(
+			        TRUE(),
+			        CustomerValue >= 10000, "Champions",
+			        CustomerValue >= 5000, "Loyal",
+			        CustomerValue >= 1000, "Regular",
+			        CustomerValue >= 1, "New",
+			        "At Risk"
+			    )
+			)
+		lineageTag: 475709b6-f132-45a0-98bb-99abfe240fff
+
+	measure 'Avg CLV by Segment' =
+			
+			AVERAGEX(
+			    FILTER(
+			        VALUES('gold dim_customer'[customer_key]),
+			        NOT(ISBLANK([Customer LTV]))
+			    ),
+			    [Customer LTV]
+			)
+		lineageTag: 2d652e7a-9100-4eaa-a2b3-bd5e594d0288
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Promo Revenue' =
+			
+			CALCULATE(
+			    [Total Revenue],
+			    'gold fact_sales'[promotion_key] <> BLANK()
+			)
+		lineageTag: e7652b43-db89-46a3-a937-e106fa3549a1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Non Promo Revenue' =
+			
+			CALCULATE(
+			    [Total Revenue],
+			    'gold fact_sales'[promotion_key] = BLANK()
+			)
+		formatString: \$#,0;(\$#,0);\$#,0
+		lineageTag: 7ccc9895-f51e-4b6c-b314-48823560d05e
+
+	measure 'Promo Orders' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT('gold fact_sales'[order_id]),
+			    'gold fact_sales'[promotion_key] <> BLANK()
+			)
+		formatString: 0
+		lineageTag: d400e7a9-e758-4363-9ce3-313311f93ef3
+
+	measure 'Promotion ROI' =
+			
+			DIVIDE(
+			    [Promo Revenue],
+			    SUM('gold dim_promotion'[budget])
+			)
+		lineageTag: 6f08aa87-2824-4711-8d86-cafa86b01393
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Returns' = COUNTROWS('gold fact_returns')
+		formatString: 0
+		lineageTag: 7f5f4d7e-0b1c-46d3-80b6-53902dc6a48a
+
+	measure Measure
+		lineageTag: 3b1abb58-7c0b-414c-9769-f35846759e25
+
+		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
+
+	measure 'Total Refunded' = SUM('gold fact_returns'[refund_amount])
+		formatString: 0.0
+		lineageTag: e8dc3090-5be8-42c4-81f2-10e5c408ee2b
+
+	measure 'Approved Returns' =
+			
+			CALCULATE(
+			    COUNTROWS('gold fact_returns'),
+			    'gold fact_returns'[status] = "approved"
+			)
+		formatString: 0
+		lineageTag: 78bc9ef8-f68c-4404-9f33-74b8de752310
+
+	measure 'Approval Rate' =
+			
+			DIVIDE(
+			    [Approved Returns],
+			    [Total Returns]
+			)
+		lineageTag: f32a419c-3195-43a5-9394-dd96e9b70e61
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Repeat Customers' =
+			
+			COUNTROWS(
+			    FILTER(
+			        VALUES('gold fact_sales'[customer_key]),
+			        CALCULATE(
+			            DISTINCTCOUNT('gold fact_sales'[order_id])
+			        ) > 1
+			    )
+			)
+		formatString: 0
+		lineageTag: 9d9c07d4-4733-49d5-9f3e-5779ffb3c241
+
+	measure 'Repeat Rate' =
+			
+			DIVIDE(
+			    [Repeat Customers],
+			    [Total Customers]
+			)
+		formatString: 0%;-0%;0%
+		lineageTag: 80a396dd-cd69-4b8e-98e3-027b03e38942
+
+	measure 'New Customers' =
+			
+			CALCULATE(
+			    DISTINCTCOUNT('gold dim_customer'[customer_key]),
+			    'gold dim_customer'[registration_date] >= DATE(YEAR(TODAY()), 1, 1)
+			)
+		formatString: 0
+		lineageTag: 98d2d119-5885-41db-8d06-7290b8b10268
+
+	measure 'Avg Customer Spend' =
+			
+			DIVIDE(
+			    [Total Revenue],
+			    [Total Customers]
+			)
+		lineageTag: 22a59c3e-250c-48d2-9bba-d5cb0495127f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Customer Type' =
+			
+			IF(
+			    CALCULATE(
+			        DISTINCTCOUNT('gold fact_sales'[order_id])
+			    ) > 1,
+			    "Repeat",
+			    "New"
+			)
+		lineageTag: bda19975-44e4-4774-b53e-2cfd3e373794
+
+	measure 'Customer Count by Segment (Donut)' = ```
+			
+			VAR SelectedSegment = SELECTEDVALUE('Segments Donut'[Segment])
+			VAR CustomerWithOrders = 
+			    ADDCOLUMNS(
+			        VALUES('gold dim_customer'[customer_key]),
+			        "OrderCount", CALCULATE(DISTINCTCOUNT('gold fact_sales'[order_id]))
+			    )
+			VAR CustomerSegment = 
+			    ADDCOLUMNS(
+			        CustomerWithOrders,
+			        "Segment",
+			        SWITCH(
+			            TRUE(),
+			            [OrderCount] >= 6, "VIP",
+			            [OrderCount] >= 2, "Repeat",
+			            [OrderCount] = 1, "New",
+			            "No Orders"
+			        )
+			    )
+			RETURN
+			COUNTROWS(
+			    FILTER(
+			        CustomerSegment,
+			        [Segment] = SelectedSegment
+			    )
+			)
+			```
+		formatString: 0
+		lineageTag: 6cd4f89d-a9c0-47cf-b6c0-19ffd00f52d5
 
 	column Value1
 		isHidden

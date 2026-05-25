@@ -1,0 +1,37 @@
+table 'Segments Donut'
+	lineageTag: 5b7d041e-2579-4b20-9736-55f03b0ad612
+
+	column Segment
+		lineageTag: d8147988-a8c5-4701-8d4f-fb802c8a0c2b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Segment]
+		sortByColumn: 'Sort Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sort Order'
+		formatString: 0
+		lineageTag: 57f145ef-c518-45a7-9d87-2a3cbc00ca74
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Sort Order]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Segments Donut' = calculated
+		mode: import
+		source =
+				
+				DATATABLE(
+				    "Segment", STRING,
+				    "Sort Order", INTEGER,
+				    {
+				        {"VIP", 1},
+				        {"Repeat", 2},
+				        {"New", 3}
+				    }
+				)
+
+	annotation PBI_Id = 90ccba1868e54edd95dc6dea1af3de6d
+

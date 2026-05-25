@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "ebf6534e12783c189755",
+  "position": {
+    "x": 60.78212290502794,
+    "y": 135.86592178770951,
+    "z": 4,
+    "height": 393.29608938547489,
+    "width": 516.64804469273747,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Segments Donut"
+                    }
+                  },
+                  "Property": "Segment"
+                }
+              },
+              "queryRef": "Segments Donut.Segment",
+              "nativeQueryRef": "Segment",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dax_Measures"
+                    }
+                  },
+                  "Property": "Customer Count by Segment (Donut)"
+                }
+              },
+              "queryRef": "Dax_Measures.Customer Count by Segment (Donut)",
+              "nativeQueryRef": "Customer Count by Segment (Donut)"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
