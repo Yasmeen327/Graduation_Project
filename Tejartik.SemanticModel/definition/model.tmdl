@@ -8,9 +8,9 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["gold dim_customer","gold dim_date","gold dim_location","gold dim_payment","gold dim_product","gold dim_promotion","gold dim_review","gold dim_seller","gold fact_events","gold fact_returns","gold fact_sales","gold fact_shipments"]
+annotation PBI_QueryOrder = ["gold dim_customer","gold dim_date","gold dim_location","gold dim_payment","gold dim_product","gold dim_promotion","gold dim_review","gold dim_seller","gold fact_events","gold fact_returns","gold fact_sales","gold fact_shipments","Dax Measures"]
 
-annotation PBI_RemovedChildren = [{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"b8705a0e-a0f7-4661-bd31-94903c5c4e74","fromColumnLocalLineageTag":"5c79acad-dc52-41db-87dd-51cab4b0a653","toTableLocalLineageTag":"71936ac7-3491-4db3-8be0-0badbe0b981a","toColumnLocalLineageTag":"97f2460f-8687-4e36-adb2-06d6e4c69c2b"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"a2dd3bfb-eb1e-4e3a-92eb-9d82bd9561db","fromColumnLocalLineageTag":"7e2fe11f-c171-4a22-b2a6-3f0d8a43f960","toTableLocalLineageTag":"71936ac7-3491-4db3-8be0-0badbe0b981a","toColumnLocalLineageTag":"97f2460f-8687-4e36-adb2-06d6e4c69c2b"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"a4bec6b5-7003-4234-a84d-1f42a56acfdb","fromColumnLocalLineageTag":"5ac6c1c7-3667-41d1-997f-a19df1d8aca3","toTableLocalLineageTag":"a1d3be64-324e-447a-9309-6ec01dc510aa","toColumnLocalLineageTag":"b3b54f65-c221-40e1-bb3e-9c030aeb78d4"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"1db13e34-2ba5-4e99-84ed-86f410f10bed","fromColumnLocalLineageTag":"e3ac418d-897b-460d-a52c-1071e2fdf594","toTableLocalLineageTag":"a1d3be64-324e-447a-9309-6ec01dc510aa","toColumnLocalLineageTag":"b3b54f65-c221-40e1-bb3e-9c030aeb78d4"}},"objectType":"Relationship"}]
+annotation PBI_RemovedChildren = [{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"b8705a0e-a0f7-4661-bd31-94903c5c4e74","fromColumnLocalLineageTag":"5c79acad-dc52-41db-87dd-51cab4b0a653","toTableLocalLineageTag":"71936ac7-3491-4db3-8be0-0badbe0b981a","toColumnLocalLineageTag":"97f2460f-8687-4e36-adb2-06d6e4c69c2b"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"a2dd3bfb-eb1e-4e3a-92eb-9d82bd9561db","fromColumnLocalLineageTag":"7e2fe11f-c171-4a22-b2a6-3f0d8a43f960","toTableLocalLineageTag":"71936ac7-3491-4db3-8be0-0badbe0b981a","toColumnLocalLineageTag":"97f2460f-8687-4e36-adb2-06d6e4c69c2b"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"a4bec6b5-7003-4234-a84d-1f42a56acfdb","fromColumnLocalLineageTag":"5ac6c1c7-3667-41d1-997f-a19df1d8aca3","toTableLocalLineageTag":"a1d3be64-324e-447a-9309-6ec01dc510aa","toColumnLocalLineageTag":"b3b54f65-c221-40e1-bb3e-9c030aeb78d4"}},"objectType":"Relationship"}]
 
 annotation PBI_ProTooling = ["DevMode"]
 
@@ -26,6 +26,7 @@ ref table 'gold fact_events'
 ref table 'gold fact_returns'
 ref table 'gold fact_sales'
 ref table 'gold fact_shipments'
+ref table 'Dax Measures'
 
 ref cultureInfo en-US
 

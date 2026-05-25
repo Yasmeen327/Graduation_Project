@@ -1,0 +1,165 @@
+table 'Dax Measures'
+	lineageTag: 60f7eb0e-2b02-43e1-9418-4afe60c6f799
+
+	measure 'Gross Revenue' = SUM('gold fact_sales'[gross_revenue])
+		lineageTag: 05469364-f5e2-4c3f-9b65-beebf3d2f271
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Net Revenue' = SUM('gold fact_sales'[net_revenue])
+		lineageTag: 2101836e-0c3b-49fd-942e-3d6adb7a49c0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Tax Collected' = SUM('gold fact_sales'[tax_amount])
+		lineageTag: 3f3607f7-7ff3-46ce-93cb-b7425e696ffa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Discounts' = SUM('gold fact_sales'[discount_amount])
+		lineageTag: ee9399fb-7cfd-4e0e-9498-b2396bce1bc7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Orders' = DISTINCTCOUNT('gold fact_sales'[order_id])
+		formatString: 0
+		lineageTag: 489efee6-524a-4e55-bf9b-5a6233ada3d1
+
+	measure 'Avg Daily Revenue' = AVERAGEX(VALUES('gold dim_date'[full_date]),[Gross Revenue])
+		lineageTag: 87bdb443-52ed-4565-8d44-e0a6654c8416
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure AOV = ```
+			DIVIDE([Gross Revenue],[Total Orders]) 
+			```
+		lineageTag: 8add4aa6-8d70-4a46-a804-135f2b617614
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Shipping Revenue' = SUM('gold fact_sales'[shipping_fee])
+		lineageTag: 9088dce3-fbb2-4bfb-b251-d1b1ea42a7af
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Products' = DISTINCTCOUNT('gold dim_product'[product_key])
+		formatString: 0
+		lineageTag: 5ea5642e-8105-4c4e-bcaa-d9f64917f893
+
+	measure 'Units Sold' = SUM('gold fact_sales'[quantity_sold])
+		formatString: 0
+		lineageTag: 43c7c305-739e-4056-a5c3-69f077505fd7
+
+	measure 'Top Category' =
+			
+			VAR TopCat =
+			    TOPN(
+			        1,
+			        SUMMARIZE(
+			            'gold dim_product',
+			            'gold dim_product'[category_name],
+			            "units sold", [Units Sold]
+			        ),
+			        [units sold],
+			        DESC
+			    )
+			RETURN
+			    CONCATENATEX(
+			        TopCat,
+			        'gold dim_product'[category_name],
+			        ", "
+			    )
+		lineageTag: a0e43762-e627-4459-a51b-c43744052ba6
+
+	measure 'COD Orders' = CALCULATE(COUNTROWS('gold dim_payment'), 'gold dim_payment'[method]="Cod")
+		formatString: 0.00
+		lineageTag: ce4c7403-0b74-4481-84a9-b7876104f1db
+
+	measure 'COD Rate' = DIVIDE([COD Orders],[Total Orders])
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 1decd3ff-35fb-41f0-a7e8-3cdeb98317de
+
+	measure 'Failed Payments' =
+			
+			CALCULATE(
+			    COUNTROWS('gold dim_payment'),
+			    'gold dim_payment'[status] = "failed"
+			)
+		formatString: 0.00
+		lineageTag: 3547117e-6da6-4cc4-9d44-42fb31dfa9d3
+
+	measure 'Digital Payments' =
+			
+			CALCULATE(
+			    COUNTROWS('gold dim_payment'),
+			    'gold dim_payment'[method] IN {
+			        "Card",
+			        "Wallet",
+			        "Bank Transfer"
+			    }
+			)
+		formatString: 0.00
+		lineageTag: 2c8ccc35-f699-4bbf-813c-920a337fe1bf
+
+	measure 'Payment Count' =
+			
+			COUNTROWS('gold dim_payment')
+		formatString: 0
+		lineageTag: 66f79689-2c55-4909-9b2b-1779ca1c15d2
+
+	measure 'Avg Product Rating' = AVERAGE('gold dim_review'[rating])
+		formatString: 0.0
+		lineageTag: ebd410a5-7b01-4b83-93a1-5cdcff62016e
+
+	measure 'Total Returns' = COUNTROWS('gold fact_returns')
+		formatString: 0
+		lineageTag: 1577bf46-7936-46b3-9fac-3abbe2bb8571
+
+	measure 'Total Items Sold' = SUM('gold fact_sales'[quantity_sold])
+		formatString: 0
+		lineageTag: 070d73e2-0a96-4b4d-b4b5-0d084be8b4ee
+
+	measure 'Return Rate' = DIVIDE([Total Returns], [Total Items Sold])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 7ef0f1d4-b11c-45fd-b083-be793a2de2b2
+
+	measure 'Review Count' = COUNTROWS('gold dim_review')
+		formatString: 0
+		lineageTag: 0eeb7d90-c2dd-4419-8464-18c4eba41929
+
+	measure AvgDeliveryDays = AVERAGE('gold fact_shipments'[delivery_days])
+		formatString: 0
+		lineageTag: d11b4797-55f8-432e-a044-35a1a8653856
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'On-Time Delivery' =
+			DIVIDE(
+			    COUNTROWS(FILTER('gold fact_shipments', 'gold fact_shipments'[delivery_days] <= 3)),
+			    COUNTROWS('gold fact_shipments'),
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: fb00924a-8cea-4eb1-a528-852c3ce94fa8
+
+	measure 'Late Delivery' =
+			DIVIDE(
+			    COUNTROWS(FILTER('gold fact_shipments', 'gold fact_shipments'[delivery_days] > 3)),
+			    COUNTROWS('gold fact_shipments'),
+			    0
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: ccbc6b5c-923b-4880-a73f-4af8f386d81e
+
+	partition 'Dax Measures' = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}}),
+				    #"Removed Columns" = Table.RemoveColumns(#"Changed Type",{"Column1"})
+				in
+				    #"Removed Columns"
+
+	annotation PBI_ResultType = Table
+

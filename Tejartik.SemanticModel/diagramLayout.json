@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 0,
-        "y": 92.649892605384878
+        "x": 840,
+        "y": 0
       },
       "nodes": [
         {
@@ -163,10 +163,23 @@
             "width": 234
           },
           "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2155.763113244841,
+            "y": 122.39161641990427
+          },
+          "nodeIndex": "Dax Measures",
+          "nodeLineageTag": "60f7eb0e-2b02-43e1-9418-4afe60c6f799",
+          "size": {
+            "height": 104,
+            "width": 234
+          },
+          "zIndex": 0
         }
       ],
       "name": "All tables",
-      "zoomValue": 55.045935365753294,
+      "zoomValue": 80,
       "pinKeyFieldsToTop": false,
       "showExtraHeaderInfo": false,
       "hideKeyFieldsWhenCollapsed": false,

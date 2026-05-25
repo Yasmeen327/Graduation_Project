@@ -78,3 +78,17 @@ relationship 3bada97e-bcfd-621e-834e-61d8c5f44831
 	fromColumn: 'gold fact_sales'.order_id
 	toColumn: 'gold dim_payment'.order_id
 
+relationship 9a32263d-eef2-448e-8c7d-26802c2b16ba
+	fromColumn: 'gold dim_review'.date_key
+	toColumn: 'gold dim_date'.date_key
+
+	annotation PBI_IsFromSource = FS
+
+relationship 11e2ce25-8aa3-5191-42c1-4da037a53c6a
+	fromColumn: 'gold dim_review'.customer_key
+	toColumn: 'gold dim_customer'.customer_key
+
+relationship 5674b669-7d0c-d012-f733-d30ac2e65f74
+	fromColumn: 'gold dim_review'.product_key
+	toColumn: 'gold dim_product'.product_key
+

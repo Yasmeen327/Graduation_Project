@@ -1,0 +1,122 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json",
+  "name": "44fb39393fd4d0151cfa",
+  "position": {
+    "x": 661.83727034120727,
+    "y": 43.674540682414694,
+    "z": 3,
+    "height": 253.64829396325459,
+    "width": 589.6062992125984,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "donutChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "gold dim_review"
+                    }
+                  },
+                  "Property": "sentiment"
+                }
+              },
+              "queryRef": "gold dim_review.sentiment",
+              "nativeQueryRef": "sentiment",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dax Measures"
+                    }
+                  },
+                  "Property": "Review Count"
+                }
+              },
+              "queryRef": "Dax Measures.Review Count",
+              "nativeQueryRef": "Review Count"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dax Measures"
+                  }
+                },
+                "Property": "Review Count"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Sentiment Distribution '"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4d50b4c5e25a764ff117",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "gold dim_review"
+              }
+            },
+            "Property": "sentiment"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b47326b9c9e3386cb2aa",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dax Measures"
+              }
+            },
+            "Property": "Review Count"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
+  }
+}

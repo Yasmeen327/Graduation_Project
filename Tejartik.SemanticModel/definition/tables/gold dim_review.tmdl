@@ -18,7 +18,7 @@ table 'gold dim_review'
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 169d74ca-1c8b-477f-9046-3f201f9a2a4c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: product_key
 
 		annotation SummarizationSetBy = Automatic
@@ -29,7 +29,7 @@ table 'gold dim_review'
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: a69a4c5a-8f0c-4672-b890-6b261e27bb11
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: customer_key
 
 		annotation SummarizationSetBy = Automatic
@@ -40,7 +40,7 @@ table 'gold dim_review'
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: e3ac418d-897b-460d-a52c-1071e2fdf594
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: date_key
 
 		annotation SummarizationSetBy = Automatic
@@ -49,10 +49,10 @@ table 'gold dim_review'
 		dataType: double
 		sourceProviderType: decimal(3, 2)
 		lineageTag: 0349c697-0f35-4fed-b75f-737be7e5aaad
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: rating
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
