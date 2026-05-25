@@ -6,6 +6,35 @@ table Dax_Measures
 
 		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
 
+	measure Show_Seller_Data =
+			
+			IF(
+			    ISFILTERED('gold dim_seller'[seller_id]),
+			    1,
+			    0
+			)
+		formatString: 0
+		lineageTag: 0bdffdba-6e1c-43dd-baa5-c7c73bdf3e63
+
+	measure Login_Msg =
+			
+			VAR SellerID =
+			    MAX('gold dim_seller'[seller_id])
+			
+			VAR SellerName =
+			    CALCULATE(
+			        MAX('gold dim_seller'[name]),
+			        REMOVEFILTERS('gold dim_seller'),
+			        'gold dim_seller'[seller_id] = SellerID
+			    )
+			RETURN
+			IF(
+			    ISFILTERED('gold dim_seller'[seller_id]),
+			     "Welcome, " & SellerName & " 👋",
+			   "Enter Your ID to View Your Dashboard"
+			)
+		lineageTag: ac4d78d5-8b2d-4ac7-90c0-c5c6fc44bd8f
+
 	column Dummy
 		formatString: 0
 		lineageTag: 985a4668-6a06-4245-8a4d-f391d9ff0fe2
