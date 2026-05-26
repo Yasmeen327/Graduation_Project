@@ -145,17 +145,17 @@ table 'gold dim_date'
 			lineageTag: f07d647c-e979-4a7b-b490-d3180ac22866
 			column: quarter
 
-		level month
-			lineageTag: db232b6b-ec0e-4f89-97ab-89de55b256e4
-			column: month
+		level month_name
+			lineageTag: 6e00141f-8633-463c-a83c-3c7d9c1d653a
+			column: month_name
 
 		level week_number
-			lineageTag: 1eaeaa70-e129-442d-9557-f8ac3cb298f5
+			lineageTag: e59ee0bb-52eb-46aa-9b6b-a6c16347ba1d
 			column: week_number
 
-		level day
-			lineageTag: 8cc6afe2-a060-4319-9a41-5733f64ba966
-			column: day
+		level day_name
+			lineageTag: 8be00cc7-2b6c-4e53-9aa6-e5acd76c1dc4
+			column: day_name
 
 	partition 'gold dim_date' = m
 		mode: directQuery

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "75ed336c19e2a88d90c4",
   "position": {
-    "x": 160,
-    "y": 14.285714285714286,
-    "z": 3,
-    "height": 54.285714285714292,
-    "width": 814.28571428571433,
-    "tabOrder": 2
+    "x": 146.66666666666669,
+    "y": 18.333333333333336,
+    "z": 3000,
+    "height": 61.666666666666671,
+    "width": 1016.6666666666667,
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -23,11 +23,11 @@
                       "Entity": "Dax_Measures"
                     }
                   },
-                  "Property": "Login_Msg"
+                  "Property": "Page_Msg"
                 }
               },
-              "queryRef": "Dax_Measures.Login_Msg",
-              "nativeQueryRef": "Login_Msg"
+              "queryRef": "Dax_Measures.Page_Msg",
+              "nativeQueryRef": "Page_Msg"
             }
           ]
         }
@@ -178,7 +178,7 @@
             "horizontalAlignment": {
               "expr": {
                 "Literal": {
-                  "Value": "'center'"
+                  "Value": "'left'"
                 }
               }
             },

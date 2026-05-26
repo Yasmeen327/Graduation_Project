@@ -58,6 +58,17 @@ table 'gold dim_location'
 
 		annotation SummarizationSetBy = Automatic
 
+	hierarchy 'region Hierarchy'
+		lineageTag: a7c8bdd1-f707-406c-8a62-0e220b362079
+
+		level region
+			lineageTag: fa792c96-dba9-4e7a-91e1-5919ae579c8a
+			column: region
+
+		level city
+			lineageTag: d4a88522-e702-4506-bc77-af56c0987427
+			column: city
+
 	partition 'gold dim_location' = m
 		mode: directQuery
 		source =

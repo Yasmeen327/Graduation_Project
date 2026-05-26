@@ -1,0 +1,181 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
+  "name": "01c8d1da80829aaef362",
+  "position": {
+    "x": 755,
+    "y": 485,
+    "z": 15000,
+    "height": 211.66666666666669,
+    "width": 498.33333333333337,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "esriVisual",
+    "query": {
+      "queryState": {
+        "Color": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Dax_Measures"
+                    }
+                  },
+                  "Property": "Total Orders"
+                }
+              },
+              "queryRef": "Dax_Measures.Total Orders",
+              "nativeQueryRef": "Total Orders"
+            }
+          ]
+        },
+        "Location": {
+          "projections": [
+            {
+              "field": {
+                "HierarchyLevel": {
+                  "Expression": {
+                    "Hierarchy": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "gold dim_location"
+                        }
+                      },
+                      "Hierarchy": "region Hierarchy"
+                    }
+                  },
+                  "Level": "region"
+                }
+              },
+              "queryRef": "gold dim_location.region Hierarchy.region",
+              "nativeQueryRef": "region Hierarchy region"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Dax_Measures"
+                  }
+                },
+                "Property": "Total Orders"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "mapControls": [
+        {
+          "properties": {}
+        }
+      ],
+      "mapTools": [
+        {
+          "properties": {
+            "basemaps": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "share": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "mapObject": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"portalUrl\":\"https://www.arcgis.com\",\"version\":\"2.4\",\"isAuthorNamedUser\":false,\"map\":{\"webmap\":{\"is3d\":false,\"itemData\":{\"operationalLayers\":[{\"id\":\"MyLayer\",\"visibility\":true,\"opacity\":1,\"minScale\":0,\"maxScale\":0,\"refreshInterval\":0,\"title\":\"region\",\"objectIdField\":\"objectId\",\"type\":\"DataLayer\",\"layerType\":\"ArcGISFeatureLayer\",\"popupEnabled\":true,\"disablePopup\":false,\"visible\":true,\"geometryType\":\"point\",\"source\":[{\"attributes\":{},\"geometry\":{\"x\":0,\"y\":0,\"type\":\"point\",\"spatialReference\":{\"latestWkid\":3857,\"wkid\":102100}}}],\"spatialReference\":{\"latestWkid\":3857,\"wkid\":102100},\"esriMaps\":{\"isTimeEnabled\":\"false\",\"clusterInfo\":null,\"lastShareInfo\":null},\"timeInfo\":null,\"showLabels\":false,\"featureCollection\":{\"layers\":[{\"popupInfo\":{\"popupElements\":[{\"type\":\"fields\",\"fieldInfos\":[{\"fieldName\":\"Dax_Measures_Total_20Orders\",\"format\":{\"digitSeparator\":true,\"places\":0},\"isEditable\":true,\"label\":\"Total Orders\",\"tooltip\":\"\",\"visible\":true},{\"fieldName\":\"gold_20dim_location_region_20Hierarchy_region\",\"isEditable\":true,\"label\":\"region\",\"tooltip\":\"\",\"visible\":true},{\"fieldName\":\"ROW_ID\",\"format\":{\"digitSeparator\":true,\"places\":0},\"isEditable\":true,\"label\":\"ROW_ID\",\"tooltip\":\"\",\"visible\":true}]}],\"expressionInfos\":[],\"fieldInfos\":[{\"fieldName\":\"Dax_Measures_Total_20Orders\",\"format\":{\"digitSeparator\":true,\"places\":0},\"isEditable\":true,\"label\":\"Total Orders\",\"tooltip\":\"\",\"visible\":true},{\"fieldName\":\"gold_20dim_location_region_20Hierarchy_region\",\"isEditable\":true,\"label\":\"region\",\"tooltip\":\"\",\"visible\":true},{\"fieldName\":\"ROW_ID\",\"format\":{\"digitSeparator\":true,\"places\":0},\"isEditable\":true,\"label\":\"ROW_ID\",\"tooltip\":\"\",\"visible\":true}],\"title\":\"\",\"actions\":[]},\"effect\":null,\"layerDefinition\":{\"objectIdField\":\"objectId\",\"fields\":[{\"alias\":\"objectId\",\"editable\":false,\"name\":\"objectId\",\"nullable\":false,\"type\":\"esriFieldTypeOID\"},{\"alias\":\"Total Orders\",\"editable\":true,\"name\":\"Dax_Measures_Total_20Orders\",\"nullable\":true,\"type\":\"esriFieldTypeInteger\"},{\"alias\":\"region\",\"editable\":true,\"length\":-1,\"name\":\"gold_20dim_location_region_20Hierarchy_region\",\"nullable\":true,\"type\":\"esriFieldTypeString\"},{\"alias\":\"ROW_ID\",\"editable\":true,\"name\":\"ROW_ID\",\"nullable\":true,\"type\":\"esriFieldTypeInteger\"}],\"geometryType\":\"point\",\"drawingInfo\":{\"renderer\":{\"authoringInfo\":{\"classificationMethod\":\"esriClassifyNaturalBreaks\",\"type\":\"classedColor\"},\"type\":\"classBreaks\",\"visualVariables\":[],\"classBreakInfos\":[{\"classMaxValue\":111,\"symbol\":{\"type\":\"esriSMS\",\"color\":[88,44,14,255],\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"size\":10,\"style\":\"esriSMSCircle\",\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"}}},{\"classMaxValue\":126,\"symbol\":{\"type\":\"esriSMS\",\"color\":[145,69,5,255],\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"size\":10,\"style\":\"esriSMSCircle\",\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"}}},{\"classMaxValue\":336,\"symbol\":{\"type\":\"esriSMS\",\"color\":[200,87,0,255],\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"size\":10,\"style\":\"esriSMSCircle\",\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"}}},{\"classMaxValue\":715,\"symbol\":{\"type\":\"esriSMS\",\"color\":[255,110,0,255],\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"size\":10,\"style\":\"esriSMSCircle\",\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"}}},{\"classMaxValue\":1237,\"symbol\":{\"type\":\"esriSMS\",\"color\":[255,162,0,255],\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"size\":10,\"style\":\"esriSMSCircle\",\"outline\":{\"type\":\"esriSLS\",\"color\":[255,255,255,204],\"width\":1,\"style\":\"esriSLSSolid\"}}}],\"defaultLabel\":\"Other\",\"defaultSymbol\":{\"type\":\"esriSMS\",\"color\":[170,170,170,255],\"angle\":0,\"xoffset\":0,\"yoffset\":0,\"size\":6,\"style\":\"esriSMSCircle\",\"outline\":{\"type\":\"esriSLS\",\"color\":[153,153,153,64],\"width\":0.375,\"style\":\"esriSLSSolid\"}},\"field\":\"Dax_Measures_Total_20Orders\",\"minValue\":91},\"transparency\":0},\"featureReduction\":null,\"locationProvider\":{\"type\":\"cachedgeocode\",\"sourceCountry\":\"world\",\"targetSR\":102100,\"lookupFields\":[{\"lookupField\":\"SingleLine\",\"outField\":\"gold_20dim_location_region_20Hierarchy_region\"}],\"geocodeServiceUrl\":\"https://utility.arcgis.com/usrsvcs/appservices/L7zl5sI0W1hBHWRI/rest/services/World/GeocodeServer\"},\"minScale\":0,\"maxScale\":0,\"definitionExpression\":null,\"templates\":[{\"name\":\"New Feature\",\"description\":\"\",\"prototype\":{\"attributes\":{\"Dax_Measures_Total_20Orders\":null,\"gold_20dim_location_region_20Hierarchy_region\":null,\"ROW_ID\":null}}}],\"elevationInfo\":null,\"name\":\"region\",\"type\":\"DataLayer\",\"queryParameters\":{\"tableId\":\"\"}},\"featureSet\":{\"features\":[{\"attributes\":{},\"geometry\":{\"x\":0,\"y\":0,\"type\":\"point\",\"spatialReference\":{\"latestWkid\":3857,\"wkid\":102100}}}]}}]}}],\"tables\":[],\"baseMap\":{\"baseMapLayers\":[{\"id\":\"VectorTile_3287\",\"opacity\":1,\"title\":\"OpenStreetMap Style\",\"visibility\":true,\"layerType\":\"VectorTileLayer\",\"styleUrl\":\"https://cdn.arcgis.com/sharing/rest/content/items/165d7a1e43164d828064eb2027e219d5/resources/styles/root.json\"}],\"title\":\"OpenStreetMap Style\",\"origItemId\":\"c29cfb7875fc4b97b58ba6987c460862\"},\"version\":\"2.26\",\"authoringApp\":\"ArcGIS for Power BI\",\"authoringAppVersion\":\"2026.1.970\",\"bookmarks\":[],\"initialState\":{\"viewpoint\":{\"targetGeometry\":{\"spatialReference\":{\"latestWkid\":3857,\"wkid\":102100},\"xmin\":-2830338.0348080117,\"ymin\":1744479.4628519977,\"xmax\":6483972.483908011,\"ymax\":4797068.624448005}}}}},\"webmapExtensions\":{\"format\":2}},\"embedCheckPassed\":false}'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "geometryCache": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "'{\"key\":\"cachedgeocode@@world\",\"compressionMethod\":\"pako\",\"data\":\"H4sIAAAAAAAAA31VTW/TQBD9K5HPZbQfs7O7PXPhygUQ4rBtN43VxAbbEQTU/86L7UJQplg5RCv77cy8j/nVjF/L1Jb9+7qtQ+3ua3P7q9mXqY7Th6f2obn1KcSb5vv83xpnjXm+aR5rf6jT0Naxuf2M9/t7gPTdu7fNbfNQDm2dptL8ee10xvwIqMDWsaOQo894UrhpPuFYksTkSSR6g8c+P99cYT6V3b5VMW2UHCibbFc0DhGXJElmfuI1XDseSvsKXHYuMllj5xLzghmSsdYQjtw12l3t2s14rFsFjsVG48hw5rm1tOBhqOiaXEzzJfka9FvZn453aomc8DkwheNaHTt0T8Fme77EX6Pdl3boNagYTRZCGeayW6CxJeO9Ox9GvgY8lGnojzsF0hgUwyDTLANcOWZhmyNx9nONTsEs+/qjdA+D2rR3URxYdXb+3viV7JA4BDLZ5xk2KLDj6TipvVvJ4JQlzJ8ugPbMmIAwDrNEFfUc2u6k8uJ8jpm85EXda4lOTJBMENBcuZVrxKE+bMaqYLK3PkHMkW38S5DzJjInyDEtGle6HvvjtNuMbVdapVTMMmBsbNYuV1XGJM4QuM+v6Agq/6nA4atkIiXrlypfdIluo6EcIAYd77H9qU4S/TqhEL0sI3vB4yievIPSddfc1V1tB1U/YhNGBg3NE7P8x9iQPkWBQ3XIbWlPx4OGmINjJpa8SofBVYIWTViGoPT7tR+mzViQpVryBAiEfDIzqfZF4YLKA8EAc+FOY6XflUcNEfmC1IrnfLjwjJGUGYKEl5TcqZ02PhGHH0Un9tLVxjkwhRsg+vOjFHfou+NWzzHkjGFysNyi4pUSifAOwdZpWRKapb+XTq8SdiZJdvHFQjKSgzkmSmueJWWCuzJ80/cB1IZstSaYC0iQhZgLFBBrr0h7f/zRD1qN2E5iibHrLhydofSMphHh86kSj4+oUV0Ib2AvGJBcdnER94yJOGJcgWmkJeCuITvI8T8hERCCjjL26eVyQLAHwb51r4XEU9kOm7rfjPDik7YimBnLmaw3/wSlnK0UQJPjl6D88vwblpvJM6EIAAA=\"}'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Orders by Region'"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "22D"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

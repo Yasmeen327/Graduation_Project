@@ -16,7 +16,7 @@ table Dax_Measures
 			IF(
 			    ISFILTERED('gold dim_seller'[seller_id]),
 			     "Welcome, " & SellerName & " 👋",
-			   "Enter Your ID To View Your Dashboard"
+			   "Enter Your ID To View Your Dashboard ➡️"
 			)
 		displayFolder: Functionality
 		lineageTag: ac4d78d5-8b2d-4ac7-90c0-c5c6fc44bd8f
@@ -270,6 +270,135 @@ table Dax_Measures
 			```
 		displayFolder: Functionality
 		lineageTag: accc0ae2-325a-4565-b647-b25ccee79e88
+
+	measure 'Avg Order Value' =
+			
+			DIVIDE([Total Gross Revenue], [Total Orders], 0)
+		displayFolder: Main KPIS
+		lineageTag: a3b4221c-85a6-46e8-aba6-3110e46f28f3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Page_Msg =
+			
+			VAR SellerID =
+			    MAX('gold dim_seller'[seller_id])
+			
+			VAR SellerName =
+			    CALCULATE(
+			        MAX('gold dim_seller'[name]),
+			        REMOVEFILTERS('gold dim_seller'),
+			        'gold dim_seller'[seller_id] = SellerID
+			    )
+			RETURN
+			IF(
+			    ISFILTERED('gold dim_seller'[seller_id]),
+			     SellerName & "'s Performance 🔎",
+			   ""
+			)
+		displayFolder: Functionality
+		lineageTag: e059d462-35ca-4a14-8975-67656cddaf50
+
+	measure 'Total Products' = ```
+			DISTINCTCOUNT('gold dim_product'[product_id])	
+			```
+		formatString: 0
+		displayFolder: Main KPIS
+		lineageTag: 0b4b4917-fd4a-491f-b733-e30c25ed1257
+
+	measure 'Cancelled Orders' = CALCULATE(DISTINCTCOUNT('gold fact_sales'[order_id]), 'gold fact_shipments'[status] = "Cancelled")
+		formatString: 0
+		displayFolder: Side Calculation
+		lineageTag: bdfd2f76-cf6e-4d75-a743-2cbfb1f1def8
+
+	measure 'Cancellation Rate' = DIVIDE([Cancelled Orders], [Total Orders], 0)
+		displayFolder: Main KPIS
+		lineageTag: 96cc1e73-6a2c-488f-8837-a58666be0315
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Seller Health Score' = ```
+			
+			VAR MaxPoints = 100
+			-- 1. Returns Component (Max 25 pts): Deduct points if return rate exceeds a 5% threshold
+			VAR ReturnComponent = MAX(0, 25 - ([Return Rate] * 100 * 2)) 
+			
+			-- 2. Customer Satisfaction (Max 25 pts): Scaled linearly based on a 5-star rating system
+			VAR SatisfactionComponent = (
+			AVERAGE('gold dim_review'[rating]) / 5) * 25
+			
+			-- 3. Fulfillment / Cancellation Component (Max 25 pts): Deduct points if cancellation exceeds 2%
+			VAR CancellationComponent = 25 * (1 - MIN([Cancellation Rate], 0.15))
+			-- 4. Revenue Stability Component (Max 25 pts): Defaulting to a baseline metric or revenue growth rule
+			VAR RevenueComponent = 25 
+			
+			RETURN
+			ROUND(ReturnComponent + SatisfactionComponent + CancellationComponent + RevenueComponent, 0)
+			```
+		displayFolder: Main KPIS
+		lineageTag: ce1e9170-65af-4f4f-be18-9e3ea094bf27
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure SHS_Return_Component = ```
+			
+			VAR ReturnCalc = MAX(0, 25 - ([Return Rate] * 100 * 2))
+			RETURN 
+			COALESCE(ReturnCalc, 0)
+			```
+		displayFolder: Side Calculation
+		lineageTag: c318b60a-085c-4fb9-88a8-2ee7749ddfb3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure SHS_Satisfaction_Component = ```
+			
+			VAR SatCalc = (AVERAGE('gold dim_review'[rating]) / 5) * 25
+			RETURN 
+			COALESCE(SatCalc, 0)
+			```
+		displayFolder: Side Calculation
+		lineageTag: 5657c0e5-1bc5-4a4b-96e3-529055bde57f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure SHS_Cancellation_Component = ```
+			
+			VAR CancelCalc = 25 * (1 - MIN([Cancellation Rate], 0.15))
+			RETURN 
+			COALESCE(CancelCalc, 0)
+			```
+		displayFolder: Side Calculation
+		lineageTag: 0b560fec-31d6-4dce-bd49-8e4a0b47f8f3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure SHS_Revenue_Component = ```
+			
+			VAR SellerSales = [Total Gross Revenue]
+			VAR TargetSales = 50000 -- Your definition of a top-tier monthly revenue
+			VAR SalesRatio = DIVIDE(SellerSales, TargetSales, 0)
+			VAR ScaledPoints = MIN(1, SalesRatio) * 25
+			
+			RETURN 
+			COALESCE(ScaledPoints, 0)
+			```
+		displayFolder: Side Calculation
+		lineageTag: 6a19d2c6-1b4f-4b02-94a2-1f4635c2e267
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Rating' = AVERAGE('gold dim_review'[rating])
+		displayFolder: Main KPIS
+		lineageTag: 807fb9bf-c548-49ba-933b-63e9b400f5d3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Avg Order Size' = AVERAGE('gold fact_sales'[quantity_sold])
+		displayFolder: Main KPIS
+		lineageTag: 96776cf3-8e10-4bc1-a00c-fa779c0bbebb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column Dummy
 		isHidden

@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/page/2.1.0/schema.json",
   "name": "e251bf13f8d8c3cf152c",
-  "displayName": "Seller HealthScore",
+  "displayName": "Health Score",
   "displayOption": "FitToPage",
   "height": 720,
   "width": 1280

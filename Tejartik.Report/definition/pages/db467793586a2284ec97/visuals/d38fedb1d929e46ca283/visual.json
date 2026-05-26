@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "d38fedb1d929e46ca283",
   "position": {
-    "x": 295,
-    "y": 151.66666666666669,
-    "z": 10000,
-    "height": 126.66666666666667,
-    "width": 245,
-    "tabOrder": 10000
+    "x": 584.19338206302507,
+    "y": 160.72305965848776,
+    "z": 7000,
+    "height": 127.18085590367293,
+    "width": 232.00024263746928,
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -306,6 +306,33 @@
                         {
                           "Condition": {
                             "Comparison": {
+                              "ComparisonKind": 0,
+                              "Left": {
+                                "Measure": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "Dax_Measures"
+                                    }
+                                  },
+                                  "Property": "Orders % color status"
+                                }
+                              },
+                              "Right": {
+                                "Literal": {
+                                  "Value": "0D"
+                                }
+                              }
+                            }
+                          },
+                          "Value": {
+                            "Literal": {
+                              "Value": "'#7896a4'"
+                            }
+                          }
+                        },
+                        {
+                          "Condition": {
+                            "Comparison": {
                               "ComparisonKind": 3,
                               "Left": {
                                 "Measure": {
@@ -333,7 +360,7 @@
                         {
                           "Condition": {
                             "Comparison": {
-                              "ComparisonKind": 2,
+                              "ComparisonKind": 1,
                               "Left": {
                                 "Measure": {
                                   "Expression": {

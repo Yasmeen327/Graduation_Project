@@ -162,6 +162,17 @@ table 'gold dim_product'
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	hierarchy 'category_name Hierarchy'
+		lineageTag: 0d987782-f8a6-4022-bb24-d8f7fce88a33
+
+		level category_name
+			lineageTag: 31ca61c8-2e78-4768-8239-65cb05d3473a
+			column: category_name
+
+		level name
+			lineageTag: 0d9d6f37-d6d3-450d-89af-11a449539e38
+			column: name
+
 	partition 'gold dim_product' = m
 		mode: directQuery
 		source =
