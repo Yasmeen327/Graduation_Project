@@ -1,5 +1,6 @@
 table 'gold dim_date'
 	lineageTag: a1d3be64-324e-447a-9309-6ec01dc510aa
+	dataCategory: Time
 
 	column date_key
 		dataType: int64
@@ -14,6 +15,7 @@ table 'gold dim_date'
 
 	column full_date
 		dataType: dateTime
+		isKey
 		isNullable: false
 		formatString: Long Date
 		sourceProviderType: date
@@ -131,6 +133,29 @@ table 'gold dim_date'
 		sourceColumn: fiscal_quarter
 
 		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'year Hierarchy'
+		lineageTag: a99bc419-fa72-495c-8d79-af5efa8280b3
+
+		level year
+			lineageTag: 56608643-cc10-412a-808b-dcf93c1bc7f1
+			column: year
+
+		level quarter
+			lineageTag: f07d647c-e979-4a7b-b490-d3180ac22866
+			column: quarter
+
+		level month
+			lineageTag: db232b6b-ec0e-4f89-97ab-89de55b256e4
+			column: month
+
+		level week_number
+			lineageTag: 1eaeaa70-e129-442d-9557-f8ac3cb298f5
+			column: week_number
+
+		level day
+			lineageTag: 8cc6afe2-a060-4319-9a41-5733f64ba966
+			column: day
 
 	partition 'gold dim_date' = m
 		mode: directQuery

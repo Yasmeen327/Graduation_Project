@@ -505,7 +505,7 @@
     },
     "callout": {
       "fontFace": "'Trebuchet MS'",
-      "fontSize": 45,
+      "fontSize": 30,
       "color": "#2F4156"
     },
     "header": {

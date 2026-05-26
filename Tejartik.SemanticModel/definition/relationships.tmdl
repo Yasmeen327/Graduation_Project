@@ -29,7 +29,6 @@ relationship 144aa89c-0a83-4fdb-a205-f7daf7c53eab
 	annotation PBI_IsFromSource = FS
 
 relationship 635af075-52fe-4146-8854-9eb30125ed3a
-	isActive: false
 	fromColumn: 'gold fact_sales'.seller_key
 	toColumn: 'gold dim_seller'.seller_key
 

@@ -3,14 +3,17 @@ table 'gold fact_returns'
 
 	column return_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: bigint
 		lineageTag: 1b82ee5d-aa14-401d-949f-3493022dc2f6
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: return_key
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
 
 	column order_item_id
 		dataType: int64
@@ -18,23 +21,27 @@ table 'gold fact_returns'
 		formatString: 0
 		sourceProviderType: bigint
 		lineageTag: 8da25aac-b893-4ca0-99f3-a36688025db7
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: order_item_id
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column product_key
 		dataType: int64
+		isHidden
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 5dc8cc4b-294e-4824-82f3-7db9d692a0df
 		summarizeBy: none
 		sourceColumn: product_key
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column customer_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
@@ -42,16 +49,21 @@ table 'gold fact_returns'
 		summarizeBy: none
 		sourceColumn: customer_key
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column return_date_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: f29bd9c1-fc7e-4975-afed-2a313b03145f
 		summarizeBy: none
 		sourceColumn: return_date_key
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -68,10 +80,10 @@ table 'gold fact_returns'
 		dataType: double
 		sourceProviderType: decimal(12, 4)
 		lineageTag: 125ca922-8b7d-4aef-81a5-282c884c6a9e
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: refund_amount
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 

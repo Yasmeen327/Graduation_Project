@@ -3,12 +3,15 @@ table 'gold dim_seller'
 
 	column seller_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 883b4d32-7d81-4723-8d66-aa5e06441771
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: seller_key
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -20,16 +23,21 @@ table 'gold dim_seller'
 		summarizeBy: none
 		sourceColumn: seller_id
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column location_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 7e2fe11f-c171-4a22-b2a6-3f0d8a43f960
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: location_key
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 

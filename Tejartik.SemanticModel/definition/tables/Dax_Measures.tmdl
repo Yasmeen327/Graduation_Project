@@ -1,21 +1,6 @@
 table Dax_Measures
 	lineageTag: 1e6d6b7e-e86e-4c08-aa75-c434490c8b25
 
-	measure Measure
-		lineageTag: 0fb195c4-1d98-4ebe-adbd-69f53cf7bb5c
-
-		annotation 43dbc3e8-3a1c-4b6f-9923-b49ff7d6691c = True
-
-	measure Show_Seller_Data =
-			
-			IF(
-			    ISFILTERED('gold dim_seller'[seller_id]),
-			    1,
-			    0
-			)
-		formatString: 0
-		lineageTag: 0bdffdba-6e1c-43dd-baa5-c7c73bdf3e63
-
 	measure Login_Msg =
 			
 			VAR SellerID =
@@ -31,11 +16,263 @@ table Dax_Measures
 			IF(
 			    ISFILTERED('gold dim_seller'[seller_id]),
 			     "Welcome, " & SellerName & " 👋",
-			   "Enter Your ID to View Your Dashboard"
+			   "Enter Your ID To View Your Dashboard"
 			)
+		displayFolder: Functionality
 		lineageTag: ac4d78d5-8b2d-4ac7-90c0-c5c6fc44bd8f
 
+	measure 'Total Gross Revenue' = SUM('gold fact_sales'[net_revenue])
+		displayFolder: Main KPIS
+		lineageTag: addf003b-ef0f-410c-ba64-f3b26ab56e66
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Orders' = DISTINCTCOUNT('gold fact_sales'[order_id])
+		formatString: 0
+		displayFolder: Main KPIS
+		lineageTag: 26f6f9c5-76e8-4d99-9974-781cc4f2605d
+
+	measure 'Total Discount' = SUM('gold fact_sales'[discount_amount])
+		displayFolder: Side Calculation
+		lineageTag: 3ec933e7-9ae7-46f9-b37a-4e6cefec0b9f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Net Profit' = [Total Gross Revenue] - [Total Discount] - [Total Commission Cost] - [Total Return Amount]
+		displayFolder: Main KPIS
+		lineageTag: d4818181-206d-4756-af6a-450d2d455d10
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Commission Cost' =
+			
+			SUMX(
+			    'gold fact_sales',
+			    'gold fact_sales'[net_revenue] *
+			    (RELATED('gold dim_product'[commission_rate]) / 100)
+			)
+		displayFolder: Side Calculation
+		lineageTag: 30db6377-6159-460a-85f7-f7e1cadaf7cc
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Return Amount' = sum('gold fact_returns'[refund_amount])
+		displayFolder: Side Calculation
+		lineageTag: f717767a-3ca6-4c66-a451-22e6d84ab56f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Margin Ratio' = ([Total Gross Revenue] / [Net Profit] )
+		displayFolder: Main KPIS
+		lineageTag: 4c14366f-18db-4b2d-88a7-05fd2cd99190
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Returned Items' = DISTINCTCOUNT('gold fact_returns'[order_item_id])
+		formatString: 0
+		displayFolder: Side Calculation
+		lineageTag: b114aaf1-fb31-4557-86a0-53a78742ff84
+
+	measure 'Total Bought Items' = SUM('gold fact_sales'[quantity_sold])
+		formatString: 0
+		displayFolder: Side Calculation
+		lineageTag: b1e09be5-4d4e-41ce-a23a-1386a2e202ec
+
+	measure 'Return Rate' =
+			
+			DIVIDE(
+			    [Total Returned Items],
+			    [Total Bought Items]
+			)
+		displayFolder: Main KPIS
+		lineageTag: 860a5fa2-91d1-4648-84ca-f673e79e5daa
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Rev PM' = ```
+			
+			VAR _LM = 
+			    CALCULATE(
+			        [Total Gross Revenue],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			-- Determine dynamic format based on magnitude
+			VAR _LM_Formatted = 
+			    SWITCH(
+			        TRUE(),
+			        _LM >= 1000000, FORMAT(_LM / 1000000, "#,##0.0M"),  -- Formats millions (e.g., 10.3M)
+			        _LM >= 1000,    FORMAT(_LM / 1000, "#,##0.0K"),     -- Formats thousands (e.g., 450.2K)
+			        FORMAT(_LM, "#,##0")                                 -- Fallback for small numbers
+			    )
+			RETURN 
+			    "vs " & _LM_Formatted & " Last Month"
+			```
+		displayFolder: Last Month KPIS
+		lineageTag: 12029c25-a686-4193-8033-6ec76263b5bc
+
+	measure Rev = ```
+			
+			VAR _CM = [Total Gross Revenue]
+			VAR _PM = 
+			    CALCULATE(
+			        [Total Gross Revenue],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			VAR _perc = DIVIDE( _CM - _PM, _PM )
+			VAR _percformat = FORMAT( _perc, "+0.0%;-0.0%;0.0%" )
+			RETURN
+			    IF(
+			        _perc > 0,
+			        UNICHAR(129157) & " " & _percformat,
+			        UNICHAR(129158) & " " & _percformat
+			    )
+			```
+		displayFolder: Percent Change
+		lineageTag: 1368037a-6474-493c-b481-68b4a478c94d
+
+	measure 'Rev % color status' = ```
+			
+			VAR _CM = [Total Gross Revenue]
+			VAR _PM = 
+			    CALCULATE(
+			        [Total Gross Revenue],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			RETURN
+			    DIVIDE(_CM - _PM, _PM)
+			```
+		displayFolder: Functionality
+		lineageTag: 524d8061-a6c5-4435-87d1-5d8cb37d6428
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Orders PM' = ```
+			
+			VAR _LM = 
+			    CALCULATE(
+			        [Total Orders],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			-- Determine dynamic format based on magnitude
+			VAR _LM_Formatted = 
+			    SWITCH(
+			        TRUE(),
+			        _LM >= 1000000, FORMAT(_LM / 1000000, "#,##0.0M"),  -- Formats millions (e.g., 10.3M)
+			        _LM >= 1000,    FORMAT(_LM / 1000, "#,##0.0K"),     -- Formats thousands (e.g., 450.2K)
+			        FORMAT(_LM, "#,##0")                                 -- Fallback for small numbers
+			    )
+			RETURN 
+			    "vs " & _LM_Formatted & " Last Month"
+			```
+		displayFolder: Last Month KPIS
+		lineageTag: f8dd96dd-c861-4e5e-a7b7-4bb767023712
+
+	measure Orders = ```
+			
+			VAR _CM = [Total Orders]
+			VAR _PM = 
+			    CALCULATE(
+			        [Total Orders],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			VAR _perc = DIVIDE( _CM - _PM, _PM )
+			VAR _percformat = FORMAT( _perc, "+0.0%;-0.0%;0.0%" )
+			RETURN
+			    IF(
+			        _perc > 0,
+			        UNICHAR(129157) & " " & _percformat,
+			        UNICHAR(129158) & " " & _percformat
+			    )
+			```
+		displayFolder: Percent Change
+		lineageTag: 11d24df0-5c29-4ffa-b2d7-0e7fc6c27d75
+
+	measure 'Orders % color status' = ```
+			
+			VAR _CM = [Total Orders]
+			VAR _PM = 
+			    CALCULATE(
+			        [Total Orders],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			RETURN
+			    DIVIDE(_CM - _PM, _PM)
+			```
+		displayFolder: Functionality
+		lineageTag: 4f777ef7-0ee3-43fd-9b8e-69b91bd652a4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Profit PM' = ```
+			
+			VAR _LM = 
+			    CALCULATE(
+			        [Net Profit],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			-- Determine dynamic format based on magnitude
+			VAR _LM_Formatted = 
+			    SWITCH(
+			        TRUE(),
+			        _LM >= 1000000, FORMAT(_LM / 1000000, "#,##0.0M"),  -- Formats millions (e.g., 10.3M)
+			        _LM >= 1000,    FORMAT(_LM / 1000, "#,##0.0K"),     -- Formats thousands (e.g., 450.2K)
+			        FORMAT(_LM, "#,##0")                                 -- Fallback for small numbers
+			    )
+			RETURN 
+			    "vs " & _LM_Formatted & " Last Month"
+			```
+		displayFolder: Last Month KPIS
+		lineageTag: c6e8e99e-7784-4efd-aa34-3733636e6bf9
+
+	measure 'Profit % color status' = ```
+			
+			VAR _CM = [Net Profit]
+			VAR _PM = 
+			    CALCULATE(
+			        [Net Profit],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			RETURN
+			    DIVIDE(_CM - _PM, _PM)
+			```
+		displayFolder: Functionality
+		lineageTag: 7cb55ecf-fd58-4e3c-a814-34a4a63b0815
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Profit = ```
+			
+			VAR _CM = [Net Profit]
+			VAR _PM = 
+			    CALCULATE(
+			        [Net Profit],
+			        DATEADD('gold dim_date'[full_date], -1, MONTH)
+			    )
+			VAR _perc = DIVIDE( _CM - _PM, _PM )
+			VAR _percformat = FORMAT( _perc, "+0.0%;-0.0%;0.0%" )
+			RETURN
+			    IF(
+			        _perc > 0,
+			        UNICHAR(129157) & " " & _percformat,
+			        UNICHAR(129158) & " " & _percformat
+			    )
+			```
+		displayFolder: Percent Change
+		lineageTag: 338c8890-8e1d-4c2e-85c6-26e7a618de65
+
+	measure 'Bookmark Navigator' = ```
+			
+			IF(
+			    ISFILTERED('gold dim_seller'[seller_id]), 
+			    "Shown", 
+			    "Hidden"
+			)
+			```
+		displayFolder: Functionality
+		lineageTag: accc0ae2-325a-4565-b647-b25ccee79e88
+
 	column Dummy
+		isHidden
 		formatString: 0
 		lineageTag: 985a4668-6a06-4245-8a4d-f391d9ff0fe2
 		summarizeBy: sum

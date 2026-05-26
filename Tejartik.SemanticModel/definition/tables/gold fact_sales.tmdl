@@ -3,17 +3,21 @@ table 'gold fact_sales'
 
 	column sales_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: bigint
 		lineageTag: 1a658f8a-beac-4029-8b2f-e90fc863c813
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: sales_key
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
 
 	column date_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
@@ -21,10 +25,13 @@ table 'gold fact_sales'
 		summarizeBy: none
 		sourceColumn: date_key
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column customer_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
@@ -32,10 +39,13 @@ table 'gold fact_sales'
 		summarizeBy: none
 		sourceColumn: customer_key
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column product_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
@@ -43,36 +53,47 @@ table 'gold fact_sales'
 		summarizeBy: none
 		sourceColumn: product_key
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column seller_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 414eb676-3f20-49b5-a897-f42d2c3c8e25
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: seller_key
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
 
 	column location_key
 		dataType: int64
+		isHidden
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 24da75fa-615c-4d47-a4f4-480dcd74b7d4
 		summarizeBy: none
 		sourceColumn: location_key
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column promotion_key
 		dataType: int64
+		isHidden
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: e5e36ba9-52b1-4d82-9076-8b265b805e2d
 		summarizeBy: none
 		sourceColumn: promotion_key
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -92,19 +113,19 @@ table 'gold fact_sales'
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: b09f72e4-ef5e-4900-a663-6747227c5bec
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: quantity_sold
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column unit_price
 		dataType: double
 		sourceProviderType: decimal(10, 2)
 		lineageTag: 0023986f-1c6f-4fd7-91e7-93a24a991c9c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: unit_price
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -112,10 +133,10 @@ table 'gold fact_sales'
 		dataType: double
 		sourceProviderType: decimal(14, 4)
 		lineageTag: f79bcec0-8375-4a7a-a771-31fca43c7172
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: tax_amount
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -123,21 +144,24 @@ table 'gold fact_sales'
 		dataType: double
 		sourceProviderType: decimal(10, 2)
 		lineageTag: 1179bdd8-49bc-4ac2-98d0-7eb5799298e1
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: discount_amount
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	column gross_revenue
 		dataType: double
+		isHidden
 		sourceProviderType: decimal(18, 4)
 		lineageTag: eab881c9-8efb-467e-9c96-6cde58660755
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: gross_revenue
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -145,10 +169,12 @@ table 'gold fact_sales'
 		dataType: double
 		sourceProviderType: decimal(18, 4)
 		lineageTag: f12c8b2b-d543-4868-86c5-0e4a057f4ce8
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: net_revenue
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -156,10 +182,10 @@ table 'gold fact_sales'
 		dataType: double
 		sourceProviderType: decimal(18, 4)
 		lineageTag: 5e6feddb-0094-4775-96d8-23245ef0f53c
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: shipping_fee
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 

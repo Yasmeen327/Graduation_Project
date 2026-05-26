@@ -3,12 +3,15 @@ table 'gold dim_product'
 
 	column product_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 23b8388f-595e-4cdf-98b7-a9c240c60b12
 		summarizeBy: none
 		sourceColumn: product_key
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -29,23 +32,26 @@ table 'gold dim_product'
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 83ed6d9f-ebe1-4580-b1be-6e8ecf860ba3
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: seller_key
 
 		changedProperty = IsHidden
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column category_key
 		dataType: int64
+		isHidden
 		isNullable: false
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 2482e220-8a65-4a43-bcad-e9c1f9095968
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: category_key
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
 
 	column name
 		dataType: string
@@ -58,10 +64,13 @@ table 'gold dim_product'
 
 	column description
 		dataType: string
+		isHidden
 		sourceProviderType: nvarchar(max)
 		lineageTag: 545dc1ae-b9d7-4073-bb65-d22693b9e3c0
 		summarizeBy: none
 		sourceColumn: description
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -69,10 +78,10 @@ table 'gold dim_product'
 		dataType: double
 		sourceProviderType: decimal(18, 2)
 		lineageTag: 0b65a095-d50c-47f3-9eb6-2af8c159b0b3
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: price
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -80,10 +89,10 @@ table 'gold dim_product'
 		dataType: double
 		sourceProviderType: decimal(10, 2)
 		lineageTag: f56d6fe4-53c5-4d78-88ec-b75aed18adcc
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: weight
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -92,10 +101,10 @@ table 'gold dim_product'
 		formatString: 0
 		sourceProviderType: int
 		lineageTag: 7ba8c21d-09a8-41b8-bc08-3957e7f36225
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: is_fragile
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column category_name
 		dataType: string
@@ -110,10 +119,12 @@ table 'gold dim_product'
 		dataType: double
 		sourceProviderType: decimal(6, 4)
 		lineageTag: 8f1c2ca5-ac91-40fa-9a4b-05cdcec163b8
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: commission_rate
 
-		annotation SummarizationSetBy = Automatic
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
@@ -122,10 +133,10 @@ table 'gold dim_product'
 		formatString: 0
 		sourceProviderType: tinyint
 		lineageTag: 21d04590-d108-443f-832e-e1a3c568298b
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: is_current
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 	column effective_from
 		dataType: dateTime

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "2a81fcedda5a44820ff2",
   "position": {
-    "x": 433.33333333333337,
-    "y": 66.666666666666671,
+    "x": 358.33333333333337,
+    "y": 70,
     "z": 1000,
     "height": 51.666666666666671,
-    "width": 413.33333333333337,
+    "width": 415,
     "tabOrder": 0
   },
   "visual": {
@@ -82,8 +82,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#F5EFEB'"
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
                     }
                   }
                 }
@@ -115,13 +116,61 @@
                   "Value": "'Enter Your ID'"
                 }
               }
+            },
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
             }
           }
         }
       ],
       "general": [
         {
-          "properties": {}
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "g",
+                    "Entity": "gold dim_seller",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "Contains": {
+                        "Left": {
+                          "Column": {
+                            "Expression": {
+                              "SourceRef": {
+                                "Source": "g"
+                              }
+                            },
+                            "Property": "seller_id"
+                          }
+                        },
+                        "Right": {
+                          "Literal": {
+                            "Value": "'1'"
+                          }
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
         }
       ]
     },
@@ -165,6 +214,11 @@
           }
         }
       ]
+    },
+    "syncGroup": {
+      "groupName": "seller_id",
+      "fieldChanges": true,
+      "filterChanges": true
     },
     "drillFilterOtherVisuals": true
   }
