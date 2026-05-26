@@ -265,6 +265,20 @@
             }
           ]
         }
+      },
+      {
+        "name": "4d39924a3271fce89fc6",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dax_Measures"
+              }
+            },
+            "Property": "Total Gross Revenue"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }

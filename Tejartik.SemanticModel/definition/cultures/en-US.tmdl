@@ -15101,7 +15101,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Return_Score": {
+			          "Return Rate": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",
@@ -15111,7 +15111,7 @@ cultureInfo en-US
 			          }
 			        },
 			        {
-			          "Return Rate": {
+			          "Return_Score": {
 			            "State": "Suggested",
 			            "Source": {
 			              "Type": "External",

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "efac9fed70b9bda2ffa4",
   "position": {
-    "x": 996.48296988262416,
-    "y": 307.47020108580267,
+    "x": 836.66666666666674,
+    "y": 306.66666666666669,
     "z": 12000,
-    "height": 167.7110187740742,
-    "width": 258.55448727669773,
+    "height": 130,
+    "width": 418.33333333333337,
     "tabOrder": 12000
   },
   "visual": {
@@ -76,10 +76,31 @@
                   "Value": "true"
                 }
               }
+            },
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
             }
           },
           "selector": {
             "metadata": "Dax_Measures.Avg Rating"
+          }
+        },
+        {
+          "properties": {
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
           }
         }
       ],
@@ -116,6 +137,27 @@
           "selector": {
             "metadata": "Dax_Measures.Avg Rating"
           }
+        },
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'belowValue'"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
         }
       ],
       "layout": [
@@ -127,13 +169,6 @@
                   "Value": "false"
                 }
               }
-            },
-            "paddingUniform": {
-              "expr": {
-                "Literal": {
-                  "Value": "5L"
-                }
-              }
             }
           },
           "selector": {
@@ -142,10 +177,17 @@
         },
         {
           "properties": {
-            "cellPadding": {
+            "alignment": {
               "expr": {
                 "Literal": {
-                  "Value": "3L"
+                  "Value": "'middle'"
+                }
+              }
+            },
+            "calloutSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "50D"
                 }
               }
             }
@@ -210,7 +252,46 @@
             "paddingUniform": {
               "expr": {
                 "Literal": {
-                  "Value": "25L"
+                  "Value": "0L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "cardCalloutArea": [
+        {
+          "properties": {
+            "paddingIndividual": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "paddingRight": {
+              "expr": {
+                "Literal": {
+                  "Value": "24L"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "referenceLabelLayout": [
+        {
+          "properties": {
+            "position": {
+              "expr": {
+                "Literal": {
+                  "Value": "'below'"
                 }
               }
             }

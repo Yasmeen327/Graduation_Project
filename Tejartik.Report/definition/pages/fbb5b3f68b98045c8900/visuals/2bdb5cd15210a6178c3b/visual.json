@@ -73,7 +73,7 @@
               },
               "queryRef": "gold dim_date.year Hierarchy.month_name",
               "nativeQueryRef": "year Hierarchy month_name",
-              "active": true
+              "active": false
             },
             {
               "field": {
@@ -394,49 +394,29 @@
           }
         },
         "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "g",
-              "Entity": "gold dim_date",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "g"
-                          }
-                        },
-                        "Property": "year"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "2023L"
-                        }
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ]
-        },
         "howCreated": "Drill"
       },
       {
-        "name": "d7ff31c2ddc3b40112f7",
+        "name": "f0f93413f0c671e65e76",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "gold dim_date"
+                  }
+                },
+                "Hierarchy": "year Hierarchy"
+              }
+            },
+            "Level": "year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "48d6ec497dcf31f0a07e",
         "field": {
           "HierarchyLevel": {
             "Expression": {
@@ -452,47 +432,92 @@
             "Level": "quarter"
           }
         },
-        "type": "Categorical",
-        "filter": {
-          "Version": 2,
-          "From": [
-            {
-              "Name": "g",
-              "Entity": "gold dim_date",
-              "Type": 0
-            }
-          ],
-          "Where": [
-            {
-              "Condition": {
-                "In": {
-                  "Expressions": [
-                    {
-                      "Column": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Source": "g"
-                          }
-                        },
-                        "Property": "quarter"
-                      }
-                    }
-                  ],
-                  "Values": [
-                    [
-                      {
-                        "Literal": {
-                          "Value": "2L"
-                        }
-                      }
-                    ]
-                  ]
-                }
+        "type": "Advanced"
+      },
+      {
+        "name": "c31827e10130ef31b4e4",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "gold dim_date"
+                  }
+                },
+                "Hierarchy": "year Hierarchy"
               }
-            }
-          ]
+            },
+            "Level": "month_name"
+          }
         },
-        "howCreated": "Drill"
+        "type": "Categorical"
+      },
+      {
+        "name": "758053b9f65a552361af",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "gold dim_date"
+                  }
+                },
+                "Hierarchy": "year Hierarchy"
+              }
+            },
+            "Level": "week_number"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f4c7d09bdc09d79d7987",
+        "field": {
+          "HierarchyLevel": {
+            "Expression": {
+              "Hierarchy": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "gold dim_date"
+                  }
+                },
+                "Hierarchy": "year Hierarchy"
+              }
+            },
+            "Level": "day_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "b0f7fd1416666bff4afb",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dax_Measures"
+              }
+            },
+            "Property": "Total Gross Revenue"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "55c37c1a300f2d673812",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "Dax_Measures"
+              }
+            },
+            "Property": "Net Profit"
+          }
+        },
+        "type": "Advanced"
       }
     ]
   }
